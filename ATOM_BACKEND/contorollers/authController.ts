@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 import { User ,IUser} from '../models/userModel';
-const AppError = require('../utils/appError');
+import AppError from '../utils/AppError';
 import asyncHandler from "express-async-handler";
 import crypto from 'crypto';
 // const crypto = require('crypto');
@@ -145,7 +145,7 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
       user.passwordResetExpires =undefined;
       await user.save({ validateBeforeSave: false });
       return next(
-        new AppError('there was an error sending the email try again latter ')
+        new AppError('there was an error sending the email try again latter ',500)
       ); 
     }
   });

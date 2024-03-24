@@ -10,6 +10,8 @@ import express, {
   import errorHandler from "./middlewares/errorHandler";
   import cookieParser from "cookie-parser";
 import usersRouter from './routes/usersRoutes';
+import adminRouter from './routes/adminRoutes';
+import itemRouter from './routes/itemRoutes';
 
   
   declare global {
@@ -49,6 +51,8 @@ import usersRouter from './routes/usersRoutes';
   });
   
   app.use('/api/v1/users', usersRouter);
+  app.use('/api/v1/admin', adminRouter);
+  app.use('/api/v1/items', itemRouter);
 
   app.use(errorHandler);
   export default app;

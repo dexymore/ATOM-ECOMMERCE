@@ -1,0 +1,219 @@
+[
+  {
+    "name": "Vintage Denim Jacket",
+    "availability": true,
+    "createdAt": "2024-03-20T12:00:00Z",
+    "discount": 20,
+    "image": [
+      "https://example.com/images/denim-jacket.jpg"
+    ],
+    "price": 59.99,
+    "category": "Jackets",
+    "description": "Perfect for every season, our Vintage Denim Jacket combines classic style with rugged durability.",
+    "size": "L",
+    "stock": 50,
+    "sex": "Unisex",
+    "images": [
+      "itemImages\\Vintage Denim Jacket\\jms201071_fadedvintage_01.jpg",
+      "itemImages\\Vintage Denim Jacket\\jms201071_fadedvintage_02.jpg",
+      "itemImages\\Vintage Denim Jacket\\jms201071_fadedvintage_05.jpg",
+      "itemImages\\Vintage Denim Jacket\\jms201071_fadedvintage_a (1).jpg",
+      "itemImages\\Vintage Denim Jacket\\jms201071_fadedvintage_a.jpg"
+    ]
+  },
+  {
+    "name": "Floral Summer Dress",
+    "availability": true,
+    "createdAt": "2024-03-18T12:00:00Z",
+    "discount": null,
+    "image": "https://example.com/images/summer-dress.jpg",
+    "price": 39.99,
+    "category": "Dresses",
+    "description": "Embrace the warmth of summer with our light and breezy Floral Summer Dress.",
+    "size": "M",
+    "stock": 75,
+    "sex": "Female",
+    "images": [
+      "itemImages\\Floral Summer Dress\\24184390-1-blue.jpeg",
+      "itemImages\\Floral Summer Dress\\24184390-2.jpeg",
+      "itemImages\\Floral Summer Dress\\24184390-3.jpeg",
+      "itemImages\\Floral Summer Dress\\24184390-4.jpeg"
+    ]
+  },
+  {
+    "name": "Classic Leather Belt",
+    "availability": true,
+    "createdAt": "2024-03-15T12:00:00Z",
+    "discount": 10,
+    "image": "https://example.com/images/leather-belt.jpg",
+    "price": 24.99,
+    "category": "Accessories",
+    "description": "Crafted from premium leather, our Classic Leather Belt is a timeless accessory for any outfit.",
+    "size": "One Size",
+    "stock": 100,
+    "sex": "Male",
+    "images": [
+      "itemImages\\Classic Leather Belt\\B4435AX_NS_BK27_01_01.jpg",
+      "itemImages\\Classic Leather Belt\\B4435AX_NS_BK27_02_01 (1).jpg",
+      "itemImages\\Classic Leather Belt\\B4435AX_NS_BK27_02_01.jpg",
+      "itemImages\\Classic Leather Belt\\B4435AX_NS_BK27_03_01.jpg"
+    ]
+  },
+  {
+    "name": "Comfy Cotton Socks",
+    "availability": true,
+    "createdAt": "2024-03-10T12:00:00Z",
+    "discount": 5,
+    "image": "https://example.com/images/cotton-socks.jpg",
+    "price": 12.99,
+    "category": "Socks",
+    "description": "Our Comfy Cotton Socks are designed for everyday comfort and style.",
+    "size": "One Size",
+    "stock": 200,
+    "sex": "Unisex",
+    "images": [
+      "itemImages\\Comfy Cotton Socks\\dcs08_01_2.jpg",
+      "itemImages\\Comfy Cotton Socks\\ls_aw18_cotton-comfort-grey_01_1.jpg",
+      "itemImages\\Comfy Cotton Socks\\medalin_grey_aw17ls_1_1.jpg"
+    ]
+  },
+  {
+    "name": "Graphic Tee Collection",
+    "availability": true,
+    "createdAt": "2024-03-22T12:00:00Z",
+    "discount": 15,
+    "image": "https://example.com/images/graphic-tee.jpg",
+    "price": 25.99,
+    "category": "T-Shirts",
+    "description": "Make a statement with our Graphic Tee Collection, featuring bold designs and soft, breathable fabric.",
+    "size": "M",
+    "stock": 90,
+    "sex": "Unisex",
+    "images": [
+      "itemImages\\Graphic Tee Collection\\Campaign-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-3.jpg",
+      "itemImages\\Graphic Tee Collection\\Duo-Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-1.jpg",
+      "itemImages\\Graphic Tee Collection\\L-Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-2.jpg",
+      "itemImages\\Graphic Tee Collection\\Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-2.jpg",
+      "itemImages\\Graphic Tee Collection\\Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-5.jpg",
+      "itemImages\\Graphic Tee Collection\\Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-6.jpg",
+      "itemImages\\Graphic Tee Collection\\Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-7.jpg",
+      "itemImages\\Graphic Tee Collection\\Model-Unisex-Fitness-Club-Heavyweight-Tee-Oversize-Elemental-Blue-Off-White-8.jpg"
+    ]
+  },
+  {
+    "name": "Slim Fit Jeans",
+    "availability": true,
+    "createdAt": "2024-03-19T12:00:00Z",
+    "discount": null,
+    "image": "https://example.com/images/slim-fit-jeans.jpg",
+    "price": 49.99,
+    "category": "Jeans",
+    "description": "Our Slim Fit Jeans offer a modern silhouette with exceptional comfort and flexibility.",
+    "size": "L",
+    "stock": 60,
+    "sex": "Male",
+    "images": [
+      "itemImages\\Slim Fit Jeans\\0396ab708da0095e9fbbdd4a4c3dc046.jpg",
+      "itemImages\\Slim Fit Jeans\\0cd562df74221035a412f05ce58670ca.jpg",
+      "itemImages\\Slim Fit Jeans\\7d49203b34ced6d1151a7989c2e538ff.jpg",
+      "itemImages\\Slim Fit Jeans\\9b4ef32fe97304ea696c628c39dbe7d2.jpg",
+      "itemImages\\Slim Fit Jeans\\b4adc9c088fdbd393327ef59387145a5.jpg",
+      "itemImages\\Slim Fit Jeans\\d58476f587893f65494be9c98a92afe4.jpg",
+      "itemImages\\Slim Fit Jeans\\e201f4e826c8cf99390cb38098557052.jpg"
+    ]
+  },
+  {
+    "name": "Woolen Scarf",
+    "availability": true,
+    "createdAt": "2024-03-16T12:00:00Z",
+    "discount": 10,
+    "image": "https://example.com/images/woolen-scarf.jpg",
+    "price": 19.99,
+    "category": "Accessories",
+    "description": "Stay warm and stylish with our Woolen Scarf, available in various colors to complement any winter coat.",
+    "size": "One Size",
+    "stock": 120,
+    "sex": "Male",
+    "images": [
+      "itemImages\\Woolen Scarf\\05875402505-a1 (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-a1.jpg",
+      "itemImages\\Woolen Scarf\\05875402505-a2 (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-a2.jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e1 (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e1.jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e2 (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e2.jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e3 (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-e3.jpg",
+      "itemImages\\Woolen Scarf\\05875402505-p (1).jpg",
+      "itemImages\\Woolen Scarf\\05875402505-p.jpg"
+    ]
+  },
+  {
+    "name": "Running Sneakers",
+    "availability": true,
+    "createdAt": "2024-03-14T12:00:00Z",
+    "discount": 20,
+    "image": "https://example.com/images/running-sneakers.jpg",
+    "price": 89.99,
+    "category": "Shoes",
+    "description": "Hit the ground running with our high-performance Running Sneakers, designed for durability and comfort.",
+    "size": "9",
+    "stock": 40,
+    "sex": "Unisex",
+    "images": [
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (1).jpeg",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (1).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (2).jpeg",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (2).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (3).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (4).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (5).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (6).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk (7).png",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk.jpeg",
+      "itemImages\\Running Sneakers\\journey-run-mens-road-running-shoes-Qg3sJk.png"
+    ]
+  },
+  {
+    "name": "Elegant Wristwatch",
+    "availability": true,
+    "createdAt": "2024-03-12T12:00:00Z",
+    "discount": 30,
+    "image": "https://example.com/images/wristwatch.jpg",
+    "price": 199.99,
+    "category": "Accessories",
+    "description": "Our Elegant Wristwatch combines classic design with precision engineering, making it the perfect accessory for any occasion.",
+    "size": "One Size",
+    "stock": 25,
+    "sex": "Male",
+    "images": [
+      "itemImages\\Elegant Wristwatch\\image (1).png",
+      "itemImages\\Elegant Wristwatch\\image (2).png",
+      "itemImages\\Elegant Wristwatch\\image (3).png",
+      "itemImages\\Elegant Wristwatch\\image (4).png",
+      "itemImages\\Elegant Wristwatch\\image (5).png",
+      "itemImages\\Elegant Wristwatch\\image.png"
+    ]
+  },
+  {
+    "name": "Casual Backpack",
+    "availability": true,
+    "createdAt": "2024-03-09T12:00:00Z",
+    "discount": null,
+    "image": "https://example.com/images/casual-backpack.jpg",
+    "price": 59.99,
+    "category": "Bags",
+    "description": "Our Casual Backpack is ideal for daily use, offering ample storage space with a sleek, modern design.",
+    "size": "One Size",
+    "stock": 80,
+    "sex": "Unisex",
+    "images": [
+      "itemImages\\Casual Backpack\\4.jpg",
+      "itemImages\\Casual Backpack\\c7nDwwYg-2.jpeg",
+      "itemImages\\Casual Backpack\\PROD_COL_91471_1408_FRONT34-1.jpg",
+      "itemImages\\Casual Backpack\\samosnite-Tech-ICT-Backpack-Black-2-1.jpg",
+      "itemImages\\Casual Backpack\\Samsonite-TECH-ICT-Backpack-Black-2-1.jpg"
+    ]
+  }
+]

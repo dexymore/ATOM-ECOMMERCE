@@ -25,6 +25,7 @@ const errorHandler = (
     status: err.status,
     message: err.message,
   });
+  
 };
 
 export default errorHandler;
