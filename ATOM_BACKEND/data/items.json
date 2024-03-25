@@ -4,9 +4,7 @@
     "availability": true,
     "createdAt": "2024-03-20T12:00:00Z",
     "discount": 20,
-    "image": [
-      "https://example.com/images/denim-jacket.jpg"
-    ],
+   
     "price": 59.99,
     "category": "Jackets",
     "description": "Perfect for every season, our Vintage Denim Jacket combines classic style with rugged durability.",
@@ -26,7 +24,7 @@
     "availability": true,
     "createdAt": "2024-03-18T12:00:00Z",
     "discount": null,
-    "image": "https://example.com/images/summer-dress.jpg",
+
     "price": 39.99,
     "category": "Dresses",
     "description": "Embrace the warmth of summer with our light and breezy Floral Summer Dress.",
@@ -45,7 +43,7 @@
     "availability": true,
     "createdAt": "2024-03-15T12:00:00Z",
     "discount": 10,
-    "image": "https://example.com/images/leather-belt.jpg",
+
     "price": 24.99,
     "category": "Accessories",
     "description": "Crafted from premium leather, our Classic Leather Belt is a timeless accessory for any outfit.",
@@ -64,7 +62,7 @@
     "availability": true,
     "createdAt": "2024-03-10T12:00:00Z",
     "discount": 5,
-    "image": "https://example.com/images/cotton-socks.jpg",
+
     "price": 12.99,
     "category": "Socks",
     "description": "Our Comfy Cotton Socks are designed for everyday comfort and style.",
@@ -82,7 +80,7 @@
     "availability": true,
     "createdAt": "2024-03-22T12:00:00Z",
     "discount": 15,
-    "image": "https://example.com/images/graphic-tee.jpg",
+
     "price": 25.99,
     "category": "T-Shirts",
     "description": "Make a statement with our Graphic Tee Collection, featuring bold designs and soft, breathable fabric.",
@@ -105,7 +103,7 @@
     "availability": true,
     "createdAt": "2024-03-19T12:00:00Z",
     "discount": null,
-    "image": "https://example.com/images/slim-fit-jeans.jpg",
+
     "price": 49.99,
     "category": "Jeans",
     "description": "Our Slim Fit Jeans offer a modern silhouette with exceptional comfort and flexibility.",
@@ -127,7 +125,7 @@
     "availability": true,
     "createdAt": "2024-03-16T12:00:00Z",
     "discount": 10,
-    "image": "https://example.com/images/woolen-scarf.jpg",
+
     "price": 19.99,
     "category": "Accessories",
     "description": "Stay warm and stylish with our Woolen Scarf, available in various colors to complement any winter coat.",
@@ -154,7 +152,7 @@
     "availability": true,
     "createdAt": "2024-03-14T12:00:00Z",
     "discount": 20,
-    "image": "https://example.com/images/running-sneakers.jpg",
+ 
     "price": 89.99,
     "category": "Shoes",
     "description": "Hit the ground running with our high-performance Running Sneakers, designed for durability and comfort.",
@@ -180,7 +178,7 @@
     "availability": true,
     "createdAt": "2024-03-12T12:00:00Z",
     "discount": 30,
-    "image": "https://example.com/images/wristwatch.jpg",
+
     "price": 199.99,
     "category": "Accessories",
     "description": "Our Elegant Wristwatch combines classic design with precision engineering, making it the perfect accessory for any occasion.",
@@ -201,7 +199,7 @@
     "availability": true,
     "createdAt": "2024-03-09T12:00:00Z",
     "discount": null,
-    "image": "https://example.com/images/casual-backpack.jpg",
+
     "price": 59.99,
     "category": "Bags",
     "description": "Our Casual Backpack is ideal for daily use, offering ample storage space with a sleek, modern design.",

@@ -1,3 +1,4 @@
+
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
@@ -5,6 +6,7 @@ import { User ,IUser} from '../models/userModel';
 import AppError from '../utils/AppError';
 import asyncHandler from "express-async-handler";
 import crypto from 'crypto';
+import Email from '../utils/sendMail';
 // const crypto = require('crypto');
 
 
@@ -44,16 +46,21 @@ const signToken = function (id: string) {
 };
 
 exports.signup = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-const newUser = await User.create(req.body);
-createSendToken(newUser, 201, res);
-res.status(201).json({
-    status: 'success',
-    data: {
-        user: newUser,
-    },
-});
+  // Create a new user
+  const newUser = await User.create(req.body);
 
+  // Send welcome email to the new user
+  const welcomeEmail = new Email(newUser, 'https://yourwebsite.com');
+  await welcomeEmail.sendWelcomeEmail();
 
+  // Send response to the client
+  createSendToken(newUser, 201, res); // Assuming this function sends the JWT token
+  res.status(201).json({
+      status: 'success',
+      data: {
+          user: newUser,
+      },
+  });
 });
 
 exports.login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -120,35 +127,29 @@ exports.login = async (req: Request, res: Response, next: NextFunction): Promise
 //     }
 // };
 
-exports.forgetpassword = asyncHandler(async (req, res, next) => {
-    //1) get user
+exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    // 1) Get user
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return next(new AppError('there is no such a user', 404));
+        return next(new AppError('There is no user with that email address.', 404));
     }
-    //2)generate random password reset token
+
+    // 2) Generate random password reset token and save it to the user document
     const resetToken = user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
-  
-    //3) send user email
-  
-  
-    // const message = `forgot your password?submit a new password with a patch request to :${resetURL}.\n if not please agnore this meassage  `;
+
+    // 3) Send password reset email to the user
     try {
-      const resetURL = `${req.protocol}://${req.get(
-        'host'
-      )}/api/v1/users/resetpassword/${resetToken}`;
-//    await new Email(user,resetURL).passwordReset() 
-      res.status(200).json({ status: 'success', meassage: 'token sent to mail' });
-    } catch (err) {
-      user.passwordResetToken =undefined;
-      user.passwordResetExpires =undefined;
-      await user.save({ validateBeforeSave: false });
-      return next(
-        new AppError('there was an error sending the email try again latter ',500)
-      ); 
+        const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetpassword/${resetToken}`;
+        await new Email(user, resetURL).sendPasswordResetEmail(); // Assuming your Email class has a method named sendPasswordResetEmail
+        res.status(200).json({ status: 'success', message: 'Password reset token sent to email.' });
+    } catch (error) {
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+        await user.save({ validateBeforeSave: false });
+        return next(new AppError('There was an error sending the email. Please try again later.', 500));
     }
-  });
+});
   
 
   exports.resetPassword = asyncHandler(async (req, res, next) => {
@@ -195,6 +196,10 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
 //     }
 // };
 
+
+// Define a function called "restrict" that accepts any number of roles as arguments.
+
+
   
   exports.logout = (req:Request, res:Response) => {
     res.cookie('jwt', 'loggedout', {
@@ -203,3 +208,14 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
     });
     res.status(200).json({ status: 'success' });
   }
+
+// exports.getme = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+//     const user=req.user;
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             user,
+//         },
+//     });
+// });
+

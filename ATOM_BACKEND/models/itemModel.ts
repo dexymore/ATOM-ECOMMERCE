@@ -5,12 +5,14 @@ interface IItem extends Document {
     availability: boolean;
     createdAt: Date;
     discount:number | null;
-    image: [string];
+    images: [string];
     price: number;
     category: string;
     description: string;
     size: string;
     stock: number;
+    sold: number;
+    sex: string;
   
 }
 
@@ -22,12 +24,14 @@ const itemSchema = new Schema<IItem>({
         percentage: { type: Number, default: 0 },
         validUntil: { type: Date, default: null },
       },
-    image: { type: [], required: true },
+    images: { type: [], required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },
     size: { type: String, required: true },
-    stock: { type: Number, required: true }
+    stock: { type: Number, required: true },
+    sold: { type: Number, default: 0 },
+    sex: { type: String, required: true , enum:["Male","Female","Unisex"]},
 
 
     // Define additional important attributes here

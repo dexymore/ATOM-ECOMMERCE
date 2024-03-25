@@ -32,7 +32,7 @@ const signToken = function (id: string) {
 
     
 
-    res.cookie('jwt', token, cookiesOptions);
+    res.cookie('Adminjwt', token, cookiesOptions);
     admin.password = undefined;
 
     res.status(statusCode).json({
@@ -92,6 +92,16 @@ res.status(200).json({
     },
 });
 
+
 if (!admins) {
     return next(new AppError('No admins found', 404));}
   });
+
+  exports.logout = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    // Clear the Adminjwt cookie by setting its value to null and expiring it
+    res.cookie('Adminjwt', null, {
+        expires: new Date(0), // Expire the cookie (set to a past date)
+        httpOnly: true,
+    });
+    res.status(200).json({ status: 'success' });
+});
