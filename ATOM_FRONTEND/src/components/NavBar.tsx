@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
  
       } else {
         setHidden(false);
-        setNavBackground("bg-gray-900");
+        setNavBackground("bg-gray-800");
         setMobileNavBar(false);
 
       }

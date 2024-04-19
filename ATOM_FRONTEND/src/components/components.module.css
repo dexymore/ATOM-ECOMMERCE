@@ -1,0 +1,71 @@
+
+
+.collectionImageTitle {
+
+    color: white;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+
+    font-size: 24px; /* Increase font size */
+    font-weight: bold; /* Make the text bold */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 1px; /* Add letter spacing */
+}
+
+.collectionImageContianer {
+    width: 600px;
+    height: 800px;
+    overflow: hidden;
+}
+
+
+
+.collectionImageContianer:hover img {
+    animation: scaleAnimation 0.5s ease forwards;
+}
+
+@keyframes scaleAnimation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+}
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .collectionImageContianer {
+        display: flex;
+        justify-content: space-between; /* Add space between images */
+        width: 90%;
+        height: 85%;
+
+        margin: auto; /* Center horizontally */
+        margin-bottom: 2rem;
+    }
+    /* .customShapeDividerTop svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 19px);
+        height: 20px;
+    }
+
+    .customShapeDividerTop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width:100%;
+        overflow: hidden;
+        line-height: 0;
+    
+    } */
+    
+}

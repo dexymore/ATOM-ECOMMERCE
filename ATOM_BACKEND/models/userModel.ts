@@ -44,6 +44,9 @@ const userSchema: Schema = new Schema({
   passwordResetExpires: Date,
   active:{type:Boolean,default:true,select:false},
 });
+
+
+
 userSchema.pre('save', async function (next) {
     //only run the function if passwoed is modified
     if (!this.isModified('password')) return next();

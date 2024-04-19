@@ -3,3 +3,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ body {
+
+  background-color: #f7fafc;    /* Add a background color */}
+
+
+  :root {
+    --svg-color: #f7fafc; /* Define a variable named --custom-color with the value rgb(2, 6, 23) */
+  }

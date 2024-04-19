@@ -1,0 +1,20 @@
+.customShapeDividerTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+
+}
+
+.customShapeDividerTop svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.4px);
+    height: 250px;
+}
+
+.customShapeDividerTop .shapefill {
+    fill: var(--svg-color);
+}

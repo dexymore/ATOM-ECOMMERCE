@@ -64,6 +64,7 @@ exports.signup = asyncHandler(async (req: Request, res: Response, next: NextFunc
 });
 
 exports.login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
   
       const { email, password } = req.body;
   
@@ -79,7 +80,15 @@ exports.login = async (req: Request, res: Response, next: NextFunction): Promise
       }
   
       // If everything is okay, send the token
-      const token = signToken(user._id);
+       signToken(user._id);
+
+
+    
+     // Convert Unix timestamp to milliseconds
+    
+      // console.log('Token was issued at:', issuedAt.toISOString());
+      // console.log('Token will expire at:', expirationTime.toISOString())
+      createSendToken(user,200,res)
   
 
   
