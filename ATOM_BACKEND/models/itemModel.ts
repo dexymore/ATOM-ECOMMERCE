@@ -5,7 +5,7 @@ interface IItem extends Document {
     availability: boolean;
     createdAt: Date;
     discount:number | null;
-    images: [string];
+    images: [IImage];
     price: number;
     category: string;
     description: string;
@@ -16,6 +16,23 @@ interface IItem extends Document {
   
 }
 
+interface IImage {
+    public_id: string;
+    url: string;
+  }
+
+
+  const imageSchema = new Schema<IImage>({
+    public_id: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  });
+
 const itemSchema = new Schema<IItem>({
     name: { type: String, required: true },
     availability: { type: Boolean, default: true },
@@ -24,7 +41,10 @@ const itemSchema = new Schema<IItem>({
         percentage: { type: Number, default: 0 },
         validUntil: { type: Date, default: null },
       },
-    images: { type: [], required: true },
+      images: {
+        type: [imageSchema],
+        required: true
+      },
     price: { type: Number, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },

@@ -7,6 +7,8 @@ const errorHandler = (
   next: NextFunction
 ) => {
   console.log("reached error handler");
+  err.message = err
+  console.log(err.message);
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
   if (err.code === 11000) {

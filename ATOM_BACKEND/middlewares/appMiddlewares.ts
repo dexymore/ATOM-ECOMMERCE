@@ -1,6 +1,24 @@
+
 var mongoose = require('mongoose');
 import { Request, Response, NextFunction } from 'express';
-// Import the IUser interface from your user model file
+const multer = require('multer');
+
+
+const Express = require('express');
+
+
+
+interface MulterFile {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    size: number;
+    destination: string;
+    filename: string;
+    path: string;
+    buffer: Buffer;
+}
 
 declare module 'express' {
     interface Request {
@@ -31,4 +49,7 @@ exports.restrict = (req: Request, res: Response, next: NextFunction) => {
        next();
         }
     };
+
+/////////////////////////multer///////////////////////////
+///upload image
 

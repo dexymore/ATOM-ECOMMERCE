@@ -1,43 +1,33 @@
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
 
-// Assuming your JSON data is in a file named `items.json` in the current directory
-const itemsJsonPath = './items.json';
-const imagesBasePath = './itemImages/';
+// Read the JSON file
+const productsFilePath = path.join(__dirname, 'items.json');
+const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
-const updateItemImages = () => {
-  // Read the items JSON file
-  fs.readFile(itemsJsonPath, (err, data) => {
-    if (err) {
-      console.error("Error reading the items JSON file:", err);
-      return;
-    }
-
-    let items = JSON.parse(data);
-
-    items.forEach(item => {
-      const itemImagePath = path.join(imagesBasePath, item.name);
-      
-      // Check if the directory exists
-      if (fs.existsSync(itemImagePath) && fs.statSync(itemImagePath).isDirectory()) {
-        const images = fs.readdirSync(itemImagePath)
-          .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file)) // Filter image files
-          .map(file => path.join(itemImagePath, file));
-
-        // Update the 'images' field with an array of image paths
-        item.images = images; // Update to use web-accessible paths as needed
+// Function to post a product
+const postProduct = async (product) => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/v1/admin/createItem', product, {
+      headers: {
+        'Content-Type': 'application/json'
       }
     });
-
-    // Write the updated items back to the JSON file or elsewhere
-    fs.writeFile(itemsJsonPath, JSON.stringify(items, null, 2), (err) => {
-      if (err) {
-        console.error("Error writing the updated items JSON file:", err);
-      } else {
-        console.log("Items JSON file has been updated with image paths.");
-      }
-    });
-  });
+    console.log(`Successfully posted product: ${product.name}`);
+    console.log(response.data);
+  } catch (error) {
+    console.error(`Error posting product: ${product.name}`);
+    console.error(error.response ? error.response.data : error.message);
+  }
 };
 
-updateItemImages();
+// Loop through each product and post it
+const postAllProducts = async () => {
+  for (const product of products) {
+    await postProduct(product);
+  }
+};
+
+// Execute the function to post all products
+postAllProducts();

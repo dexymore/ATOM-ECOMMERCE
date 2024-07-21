@@ -1,6 +1,8 @@
 
 const express = require('express');
 // const userController = require('../controllers/userController');
+// import { upload } from "../middlewares/appMiddlewares";
+
 
 const userController = require('../contorollers/userController');
 const adminController = require('../contorollers/adminController');
@@ -16,9 +18,9 @@ router.post('/login', adminController.login);
 
 // router.get('/logout', adminController.logout)
 
-router.use(appMiddlewares.restrict);
+// router.use(appMiddlewares.restrict);
 router.get('/',adminController.getAllAdmins)
-router.post('/createItem',itemController.createItem) ;
+router.post('/createItem',  itemController.createItem);
 router.get('/getAllItems',itemController.getAllItems);
 router.get('/getItem/:id',appMiddlewares.checkIDS,itemController.getItem);
 router.patch('/updateItem/:id',appMiddlewares.checkIDS,itemController.updateItem);

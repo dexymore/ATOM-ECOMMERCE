@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
           </motion.h2>
         </div>
 
-        <a href="#" className="absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base">
+        <a href="/items" className="absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base">
     view our latest collection
 </a>
 

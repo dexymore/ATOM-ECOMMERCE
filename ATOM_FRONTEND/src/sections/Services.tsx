@@ -11,7 +11,7 @@ const Services: React.FC<Props> = () => {
   // Add your component logic here
 
   return (
-    <section className="mt-14 relative w-full">
+    <section className="mt-14 relative w-full overflow-hidden">
  
 
 
@@ -35,7 +35,7 @@ const Services: React.FC<Props> = () => {
 
 
 
-      <div className="w-full absolute bottom-32 container right-0 h-100 z-30 py-2">
+      <div className="w-full absolute top-20 container left-[7rem] h-100 z-2 py-2">
   <div className="flex flex-col space-y-8 ">
     <div className="max-w-md p-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -68,8 +68,8 @@ const Services: React.FC<Props> = () => {
 </div>
 
 
-<div className="w-full flex flex-col text-white px-32 py-20 bg-slate-950">
-   <div className="self-end w-1/2 mb-4">
+<div className="w-full flex flex-col text-white px-32  py-20 bg-slate-950">
+   <div className="self-end w-1/2 mt-2">
    <div className="items-center bg-slate-950 rounded-lg shadow sm:flex ">
   <a href="#">
     <img className="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar" />

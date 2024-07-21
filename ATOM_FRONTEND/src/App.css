@@ -11,3 +11,24 @@
   :root {
     --svg-color: #f7fafc; /* Define a variable named --custom-color with the value rgb(2, 6, 23) */
   }
+
+  /* Banner text animation */
+@keyframes bannerSlideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+}
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.banner-text-animation {
+  animation: bannerSlideIn 0.6s ease-in-out forwards;
+  -webkit-animation: bannerSlideIn 0.6s ease-in-out forwards;
+}

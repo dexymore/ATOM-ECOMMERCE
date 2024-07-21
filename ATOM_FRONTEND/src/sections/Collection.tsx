@@ -8,8 +8,8 @@ const Collection: React.FC = () => {
   // Implement your component logic here
 
   return (
-    <section className="flex flex-col items-center justify-center my-8">
-      <div className="mx-auto text-center lg:mb-20">
+    <section className="flex flex-col items-center justify-center my-8 ">
+      <div className="mx-auto text-center mb-20">
         <span className="block mb-2 text-lg md:text-xl lg:text-2xl xl:text-3xl text-indigo-300">
           Collection
         </span>
@@ -21,23 +21,28 @@ const Collection: React.FC = () => {
           recent collection
         </p>
       </div>
-      <div className="flex flex-col items-center justify-center w-full md:flex-row md:justify-center md:space-x-2">
+      <div className=" flex flex-col items-center justify-center w-full md:flex-row md:justify-center md:space-x-2">
         {/* Display images in a column on phones */}
+        <div className="w-[]">
         <ImageCard
           image={image1}
           title={"for her"}
           desc={"unique set that express your Dynamism"}
-        />
+        /></div>
+        <div>
         <ImageCard
           image={image2}
           title={"for both"}
           desc={"prefectly blanced set that suitable for everyone"}
         />
+        </div>
+        <div>
         <ImageCard
           image={image3}
           title={"for him"}
           desc={"diferent types of sets for asserting dominance"}
         />
+        </div>
       </div>
     </section>
   );

@@ -1,9 +1,90 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { getOneItem } from '../utils/API';
+import { useState,useRef } from 'react';
+import Banner from '../components/Banner';
+
+
+
+interface Image {
+  public_id: string;
+  url: string;
+  _id: string;
+}
+
+interface Item {
+  _id: string;
+  name: string;
+  description: string;
+  price: number; 
+  category:string;
+  sex:string;
+  size:string;
+  stock:number
+  
+  images: Image[];
+}
 
 const ProductDetails: React.FC = () => {
-    // Add your component logic here
+  const { id } = useParams<{ id: string }>();
 
-    return (
+  
+
+   const [product, setProduct] = useState<Item | null>(null);
+   const [mainImage, setMainImage] = useState<string>(product?.images[0]?.url || '');
+   const [loading, setLoading] = useState<boolean>(true);
+   const [error, setError] = useState<string | null>(null);
+   const [lensStyle, setLensStyle] = useState<React.CSSProperties>({});
+   const containerRef = useRef<HTMLDivElement>(null);
+
+   const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - left;
+      const y = e.clientY - top;
+      const lensSize = 100;
+      const backgroundX = (x / width) * 100;
+      const backgroundY = (y / height) * 100;
+
+      setLensStyle({
+        left: `${x - lensSize / 2}px`,
+        top: `${y - lensSize / 2}px`,
+        backgroundPosition: `${backgroundX}% ${backgroundY}%`,
+        backgroundImage: `url(${mainImage})`,
+        backgroundSize: `${width * 1.5}px ${height * 1.5}px`,
+      });
+    }
+  };
+   useEffect(() => {
+    const fetchItemDetails = async () => {
+      try {
+        const itemDetails = await getOneItem(id);
+        setProduct(itemDetails);
+        setMainImage(itemDetails.images[0]?.url||"")
+        console.log(itemDetails);
+      } catch (error) {
+        setError("Failed to fetch items");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    setLoading(true); 
+  
+    if (id) {
+      fetchItemDetails();
+    } else {
+      setProduct(null); 
+      setLoading(false); 
+    }
+  
+  }, [id]); 
+  
+
+
+
+    return (<>
+    <Banner />
         <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
            <nav className="flex">
@@ -39,29 +120,37 @@ const ProductDetails: React.FC = () => {
             <div className="lg:col-span-3 lg:row-end-1">
               <div className="lg:flex lg:items-start">
                 <div className="lg:order-2 lg:ml-5">
-                  <div className="max-w-xl overflow-hidden rounded-lg">
-                    <img className="h-full w-full max-w-full object-cover" src="/images/JHxMnVrtPMdcNU1s_7g7f.png" alt="" />
-                  </div>
+                <div
+        className="max-w-xl overflow-hidden rounded-lg magnify-container"
+        onMouseMove={handleMouseMove}
+        ref={containerRef}
+      >
+        <img className="w-full h-auto object-cover magnify-image" src={mainImage} alt="Main Image" />
+        <div className="magnify-lens" style={lensStyle}></div>
+      </div>
                 </div>
       
                 <div className="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0">
-                  <div className="flex flex-row items-start lg:flex-col">
-                    <button type="button" className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center">
-                      <img className="h-full w-full object-cover" src="/images/JHxMnVrtPMdcNU1s_7g7f.png" alt="" />
-                    </button>
-                    <button type="button" className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                      <img className="h-full w-full object-cover" src="/images/JHxMnVrtPMdcNU1s_7g7f.png" alt="" />
-                    </button>
-                    <button type="button" className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                      <img className="h-full w-full object-cover" src="/images/JHxMnVrtPMdcNU1s_7g7f.png" alt="" />
-                    </button>
-                  </div>
-                </div>
+      <div className="flex flex-row items-start lg:flex-col">
+        {product?.images.slice(0, 4).map((image, index)  => (
+          
+          <button
+            key={index}
+            type="button"
+            className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center"
+            onClick={() => setMainImage(image.url)}
+          >
+            <img className="h-full w-full object-cover" src={image.url} alt={`Image ${index + 1}`} />
+          
+          </button>
+        ))}
+      </div>
+    </div>
               </div>
             </div>
       
             <div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-              <h1 className="sm: text-2xl font-bold text-gray-900 sm:text-3xl">Afro-Brazillian Coffee</h1>
+              <h1 className="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{product?.name}</h1>
       
               {/* <div className="mt-5 flex items-center">
                 <div className="flex items-center">
@@ -86,21 +175,21 @@ const ProductDetails: React.FC = () => {
       
               <h2 className="mt-8 text-base text-gray-900">Description:</h2>
               <div className="mt-3 flex select-none flex-wrap items-center gap-1">
-               
+               {product?.description}
               </div>
       
               <h2 className="mt-8 text-base text-gray-900">utils</h2>
               <div className="mt-3 flex select-none flex-wrap items-center gap-1">
   <div>
-    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">4 Months</div>
+    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">  {product?.category}</div>
 
   </div>
   <div>
-    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">8 Months</div>
+    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">{product?.sex}</div>
 
   </div>
   <div>
-    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">12 Months</div>
+    <div className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">{product?.size}</div>
 
   </div>
 </div>
@@ -108,8 +197,8 @@ const ProductDetails: React.FC = () => {
       
               <div className="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                 <div className="flex items-end">
-                  <h1 className="text-3xl font-bold">$60.50</h1>
-                  <span className="text-base">/month</span>
+                  <h1 className="text-3xl font-bold">${product?.price}</h1>
+                 
                 </div>
       
                 <button type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
@@ -142,10 +231,10 @@ const ProductDetails: React.FC = () => {
                 <nav className="flex gap-4">
                   <a href="#" title="" className="border-b-2 border-gray-900 py-4 text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Description </a>
       
-                  <a href="#" title="" className="inline-flex items-center border-b-2 border-transparent py-4 text-sm font-medium text-gray-600">
-                    sold
-                    <span className="ml-2 block rounded-full bg-gray-500 px-2 py-px text-xs font-bold text-gray-100"> </span>
-                  </a>
+                  <p  className="inline-flex items-center border-b-2 border-transparent py-4 text-sm font-medium text-gray-600">
+                    stock
+                    <span className="ml-2 block rounded-full bg-gray-500 px-2 py-px text-xs font-bold text-gray-100"> {product?.stock}</span>
+                  </p>
                 </nav>
               </div>
       
@@ -161,7 +250,7 @@ const ProductDetails: React.FC = () => {
         </div>
       </section>
       
-
+</>
     );
 };
 

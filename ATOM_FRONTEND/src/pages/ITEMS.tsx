@@ -3,44 +3,60 @@ import { getItems } from "../utils/API";
 import ItemsCard from "../components/ItemsCard";
 import classes from "./pages.module.css"; // Import CSS module
 import CategoryFilter from "../components/categoryFilter";
+import NavBar from "../components/NavBar";
+import Banner from "../components/Banner";
+
 
 interface Item {
-  id: number;
+  _id: string;
   name: string;
   description: string;
   price: number;
-  image: string;
+  images: Image[];
+}
+
+interface Image {
+  public_id: string;
+  url: string;
+  _id: string;
 }
 
 export const Items: React.FC = () => {
-  const [items, setItems] = useState([]);
-
-  const fetchItems = async () => {
-    const response = await getItems();
-    if (response.status === "success") {
-      const itemsData = response.data.items; // Assuming items are nested within a property named 'items' in the response
-      setItems(itemsData);
-    } else {
-      console.error("Failed to fetch items:", response.error);
-    }
-  };
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const items = await getItems();
+        setItems(items);
+        console.log(items); 
+      } catch (error) {
+        setError("Failed to fetch items");
+    
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchItems();
   }, []);
-
-  return (
-<section className="flex flex-col lg:flex-col">
-<CategoryFilter/>
-
-  <div className="flex flex-wrap justify-center px-4 lg:px-10 xl:px-20 gap-4 lg:gap-8">
-    {items.map((item: Item) => (
-      <div key={item.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5">
-        <ItemsCard item={item} />
-      </div>
-    ))}
+  return (<>
+    <Banner />
+     <section className="flex flex-col lg:flex-col w-[100%] items-center">
+  <div className="md:flex hidden flex-wrap justify-center w-full py-7  ">
+    <CategoryFilter />
   </div>
-</section>
+  <div className=" flex-wrap px-12  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  {items.map((item: Item) => (
+    <div key={item._id} className="col-span-1">
+      <ItemsCard item={item} />
+    </div>
+  ))}
+</div>
 
+</section>
+</>
   );
 };
