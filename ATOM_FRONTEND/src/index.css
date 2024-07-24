@@ -29,3 +29,31 @@
   transition: transform 0.3s ease;
   transform-origin: center center;
 }
+
+
+.underline {
+  display: inline-block;
+  position: relative;
+  color: #000000;
+  text-decoration: none;
+}
+.underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  border-radius: 5px;
+  height: 0.05em;
+  bottom: 0;
+  left: 0;
+  background: currentcolor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.custom-shadow-top {
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05), 0 -1px 2px -1px rgba(0, 0, 0, 0.02);
+}

@@ -43,7 +43,7 @@ export const Items: React.FC = () => {
     fetchItems();
   }, []);
   return (<>
-    <Banner />
+
      <section className="flex flex-col lg:flex-col w-[100%] items-center">
   <div className="md:flex hidden flex-wrap justify-center w-full py-7  ">
     <CategoryFilter />

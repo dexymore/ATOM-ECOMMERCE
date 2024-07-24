@@ -20,7 +20,7 @@ router.post('/login', adminController.login);
 
 // router.use(appMiddlewares.restrict);
 router.get('/',adminController.getAllAdmins)
-router.post('/createItem',  itemController.createItem);
+router.post('/createItem', itemController.createItem);
 router.get('/getAllItems',itemController.getAllItems);
 router.get('/getItem/:id',appMiddlewares.checkIDS,itemController.getItem);
 router.patch('/updateItem/:id',appMiddlewares.checkIDS,itemController.updateItem);

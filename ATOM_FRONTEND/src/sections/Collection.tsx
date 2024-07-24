@@ -21,29 +21,31 @@ const Collection: React.FC = () => {
           recent collection
         </p>
       </div>
-      <div className=" flex flex-col items-center justify-center w-full md:flex-row md:justify-center md:space-x-2">
-        {/* Display images in a column on phones */}
-        <div className="w-[]">
-        <ImageCard
-          image={image1}
-          title={"for her"}
-          desc={"unique set that express your Dynamism"}
-        /></div>
-        <div>
-        <ImageCard
-          image={image2}
-          title={"for both"}
-          desc={"prefectly blanced set that suitable for everyone"}
-        />
-        </div>
-        <div>
-        <ImageCard
-          image={image3}
-          title={"for him"}
-          desc={"diferent types of sets for asserting dominance"}
-        />
-        </div>
-      </div>
+      <div className="flex flex-col items-center justify-center w-full md:justify-center">
+  {/* Display images in a column on phones */}
+  <div className="mb-4">
+    <ImageCard
+      image={image1}
+      title={"for her"}
+      desc={"unique set that express your Dynamism"}
+    />
+  </div>
+  <div className="mb-4">
+    <ImageCard
+      image={image2}
+      title={"for both"}
+      desc={"perfectly balanced set that’s suitable for everyone"}
+    />
+  </div>
+  <div>
+    <ImageCard
+      image={image3}
+      title={"for him"}
+      desc={"different types of sets for asserting dominance"}
+    />
+  </div>
+</div>
+
     </section>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from "framer-motion";
 
 const bannerMessages = [
-  "Discover our summer collection with up to 50% off on selected items!",
+
   "New arrivals are here! Check out the latest trends in fashion.",
   "Flash Sale: Get 30% off on all accessories for a limited time.",
   "Upgrade your wardrobe with our premium quality outfits.",
@@ -32,23 +33,23 @@ const Banner: React.FC = () => {
       setAnimate(false); // Remove animation class
 
       setTimeout(() => {
-        setAnimate(true)
+        setAnimate(true);
         setMessageIndex((prevIndex) => (prevIndex + 1) % bannerMessages.length);
-    },0); // Add animation class after delay
-  
+      }, 0); // Add animation class after delay
+
     }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div id="banner" className="flex  z-50 gap-8 justify-center py-3 items-center px-4 w-full border border-b  border-black lg:py-2 bg-black">
+    <motion.div id="banner" className="flex w-full fixed top-0 left-0 right-0 z-50 gap-8 justify-center py-3 items-center px-4 border-b border-black lg:py-2 bg-black">
       <div className="flex-grow flex justify-center">
-        <p className={`text-md font-light  text-white ${animate ? 'banner-text-animation' : ''}`}>
+        <p className={`md:text-md text-sm font-light text-white ${animate ? 'banner-text-animation' : ''}`}>
           {bannerMessages[messageIndex]}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -67,6 +67,7 @@ const Login: React.FC = () => {
             style: {
                 border: '1px solid #48BB78', 
                 color: '#22543D', 
+               backgroundColor: '##48BB78', 
             },
         },
         error: {
@@ -78,9 +79,9 @@ const Login: React.FC = () => {
     }}
 />
 
-            <div className="mt-4 flex items-center justify-between"></div>
+            <div className="  flex items-center justify-between"></div>
             <form onSubmit={handleSubmit}>
-                <div className="mt-4">
+                <div className="">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
                     <input
                         className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"

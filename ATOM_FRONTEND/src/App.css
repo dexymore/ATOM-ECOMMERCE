@@ -32,3 +32,23 @@
   animation: bannerSlideIn 0.6s ease-in-out forwards;
   -webkit-animation: bannerSlideIn 0.6s ease-in-out forwards;
 }
+
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+  
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #181717; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Roundness of the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb when hovered */
+}

@@ -8,12 +8,12 @@ import Footer from "../components/Footer";
 const HomePage: React.FC = () => {
   return (
     <>
-      <NavBar></NavBar>
+  
       <Hero></Hero>
       <Collection></Collection>
 
       <Services></Services>
-      <Footer></Footer>
+   
     </>
   );
 };

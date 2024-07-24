@@ -10,7 +10,7 @@ export default function ImageCard({ image, title ,desc }: { image: string; title
     const [isInView, setIsInView] = useState(false);
 
     return (
-        <section className="">
+
             <motion.div
                 initial={false}
                 animate={
@@ -21,7 +21,7 @@ export default function ImageCard({ image, title ,desc }: { image: string; title
                 transition={{ duration: 1, delay: 1 }}
                 viewport={{ once: true }}
                 onViewportEnter={() => setIsInView(true)}
-                className={`relative bg-center bg-cover h-[40rem] w-[28rem] rounded-xl overflow-hidden ${classes.collectionImageContianer}`} // Apply collectionImageContianer class here
+                className={`relative bg-center bg-cover h-[60rem] mt-1 mb-1 ml-[.15rem]  w-[99.5%] rounded-xl overflow-hidden ${classes.collectionImageContianer}`} // Apply collectionImageContianer class here
             >
                 <img src={image} alt="" onLoad={() => setIsLoaded(true)} className="  object-cover" /> 
                 {/* Maintain aspect ratio using object-cover */}
@@ -34,6 +34,6 @@ export default function ImageCard({ image, title ,desc }: { image: string; title
                     <h3 className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 flex items-center  text-sm sm:text-base text-neutral-400 ${classes.collectionImageTitle}`}>{desc}</h3>
                 )}
             </motion.div>
-        </section>
+
     );
 }
