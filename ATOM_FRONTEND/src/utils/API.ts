@@ -1,5 +1,8 @@
+import { add } from './API';
 
 import axios from "axios";
+import { fetchCart } from "../store/cartThunks";
+import { Dispatch } from "@reduxjs/toolkit";
 
 export const API = axios.create({
   baseURL: "http://localhost:8000/api/v1",
@@ -39,7 +42,6 @@ export const userLogin = async (email: string, password: string) => {
   }
 
 };
-
 export const userSignUp = async (name: string, email: string, password: string,passwordConfirm:string ) => {
   // const response = await API.post("users/signup", { name, email, password,passwordConfirm });
   // return response.data;
@@ -48,6 +50,37 @@ export const userSignUp = async (name: string, email: string, password: string,p
     return response.data;
   } catch (error) {
     console.error("Failed to signup:", error);
+    throw error;
+  }
+};
+
+export const addToCart = async (itemId: string) => {
+  try {
+    const response = await API.put("/carts/add-items", { itemId });
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to add to cart:", error);
+    throw error;
+  }
+};
+
+export const removeFromCart = async (itemId: string) => {
+  try {
+    const response = await API.put("/carts/remove-items", { itemId });
+
+  } catch (error) {
+    console.error("Failed to remove from cart:", error);
+    throw error;
+  }
+}
+
+export const removeOneItemInstance = async (itemId: string) => {
+  try {
+    const response = await API.put("/carts/remove-all-item-instances", { itemId });
+
+  } catch (error) {
+    console.error("Failed to remove one item from cart:", error);
     throw error;
   }
 };

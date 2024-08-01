@@ -21,6 +21,7 @@ interface IItem extends Document {
   stock: number;
   sold: number;
   sex: string;
+  
 }
 
 const imageSchema = new Schema<IImage>({

@@ -2,13 +2,17 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { getOneItem } from '../utils/API';
 import { useState,useRef } from 'react';
-
+import { useToaster } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import {addToCart} from '../store/cartThunks';
+import { addToCart } from '../utils/API';
 
+import { fetchCart } from '../store/cartThunks';
 
 import { cartActions } from '../store/cart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
+import toast, { Toaster } from 'react-hot-toast';
 
 
 interface Image {
@@ -34,12 +38,15 @@ const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 const dispatch = useDispatch();
 
+
   
 
    const [product, setProduct] = useState<Item|undefined >(undefined);
    const [mainImage, setMainImage] = useState<string>(product?.images[0]?.url || '');
    const [loading, setLoading] = useState<boolean>(true);
    const [error, setError] = useState<string | null>(null);
+   const [cartLoading, setCartLoading] = useState<boolean>(false);
+   const [cartError, setCartError] = useState<string | null>(null);
    const [lensStyle, setLensStyle] = useState<React.CSSProperties>({});
    const containerRef = useRef<HTMLDivElement>(null);
 
@@ -86,15 +93,55 @@ const dispatch = useDispatch();
   
   }, [id]); 
   
-  const addItemtoCart = () => {
-    if (product) {
-      dispatch(addToCart(product));
+  const addItemtoCart =async (itemId:string) => {
+    setCartLoading(true);
+    
+    setCartError(null);
+    try{
+      const response =await addToCart(itemId);
+   
+          toast.success("Added to cart");
+
     }
-  }
+    catch(error){
+      setCartError("Failed to add to cart");
+    }
+    finally{
+      setCartLoading(false);
+    }
+  
   
 
-
+  }
     return (<>
+<Toaster 
+    position="top-center"
+    reverseOrder={false}
+    toastOptions={{
+        style: {
+            border: '1px solid #E2E8F0', 
+            padding: '16px 48px ', 
+            color: '#1A202C', 
+            backgroundColor: '#FFFFFF', 
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+            borderRadius: '8px', 
+            fontSize: '20px', 
+        },
+        success: {
+            style: {
+                border: '1px solid #48BB78', 
+                color: '#22543D', 
+               backgroundColor: '##48BB78', 
+            },
+        },
+        error: {
+            style: {
+                border: '1px solid #F56565', 
+                color: '#742A2A', 
+            },
+        },
+    }}
+/>
 
         <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
@@ -212,12 +259,35 @@ const dispatch = useDispatch();
                  
                 </div>
       
-                <button type="button" onClick={addItemtoCart} className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                  </svg>
-                  Add to cart
-                </button>
+                <button
+                type="button"
+                onClick={() => addItemtoCart(product._id)}
+                disabled={cartLoading}
+                className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+            >
+            {cartLoading ? (
+          <FontAwesomeIcon
+            icon={faCircleNotch}
+            className="mr-2 h-5 w-5 animate-spin"
+          />
+        ) : (
+          <><svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+            />
+          </svg>
+        <span>Add to Cart</span> </>)}
+       
+            </button>
               </div>
       
               <ul className="mt-8 space-y-2">

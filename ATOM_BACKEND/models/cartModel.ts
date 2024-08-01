@@ -1,12 +1,35 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { IItem, itemSchema } from './itemModel'; // Ensure the correct path to itemModel
+import { IItem } from './itemModel'; // Ensure the correct path to itemModel
+
+interface ICartItem {
+  itemId: mongoose.Types.ObjectId;
+  quantity: number;
+  price: number;
+}
 
 interface ICart extends Document {
   user: mongoose.Types.ObjectId;
-  items: IItem[];
+  items: ICartItem[];
   totalQuantity: number;
   totalPrice: number;
 }
+
+const cartItemSchema: Schema = new Schema({
+  itemId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Item',
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
 
 const cartSchema: Schema = new Schema({
   user: {
@@ -14,12 +37,7 @@ const cartSchema: Schema = new Schema({
     ref: 'User',
     required: true,
   },
-  items: [
-    {
-      type: itemSchema,
-      required: true,
-    },
-  ],
+  items: [cartItemSchema],
   totalQuantity: {
     type: Number,
     required: true,
