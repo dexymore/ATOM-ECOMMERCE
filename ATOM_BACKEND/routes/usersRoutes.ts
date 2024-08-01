@@ -1,3 +1,4 @@
+import protect from "../middlewares/appMiddlewares";
 
 
 const express = require('express');
@@ -10,9 +11,14 @@ const router = express.Router();
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
+
+router.post('/forgetpassword', authController.forgetpassword);
+
+
+router.use(protect);
 router.get('/logout', authController.logout);
- router.post('/forgetpassword', authController.forgetpassword);
- router.patch('/resetpassword/:token', authController.resetPassword);
+
+router.patch('/resetpassword/:token', authController.resetPassword);
 
 router.get('/', userController.getAllUsers);
 

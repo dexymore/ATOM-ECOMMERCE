@@ -7,134 +7,77 @@ import AppError from '../utils/AppError';
 import asyncHandler from "express-async-handler";
 import crypto from 'crypto';
 import Email from '../utils/sendMail';
+import {Cart} from '../models/cartModel';
 // const crypto = require('crypto');
 
 
 const expirationdate=Math.floor(Date.now() / 1000) + parseInt(process.env.JWT_EXPIRES_IN);
 
-const signToken = function (id: string) {
-    return jwt.sign(
-      {
-        id,
-  
-        exp: expirationdate,
-      },
-      process.env.JWT_SECRET
-    );
-  };
-
-  const createSendToken = function(user: any, statusCode: number, res: Response): void {
-    const token = signToken(user._id);
-
-    const cookiesOptions = {
-        expires: new Date(Date.now() + (Number(process.env.JWT_EXPIRES_IN_COOKIE) * 1000)), // JWT_EXPIRES_IN_COOKIE should be in seconds
-        httpOnly: true
-    };
-
-    
-
-    res.cookie('jwt', token, cookiesOptions);
-    user.password = undefined;
-
-    res.status(statusCode).json({
-        status: 'success',
-        token: token,
-        data: {
-            user,
-        },
-    });
+const signToken = (id: string) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
+export const createSendToken = (user: any, statusCode: number, res: Response): void => {
+  const token = signToken(user._id);
+
+  const cookieOptions = {
+    expires: new Date(Date.now() + Number(process.env.JWT_EXPIRES_IN_COOKIE) * 1000), // JWT_EXPIRES_IN_COOKIE should be in seconds
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Cookie will only be sent over HTTPS in production
+  };
+
+  res.cookie('jwt', token, cookieOptions);
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
+};
+// Assuming this is a utility function
+
 exports.signup = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  // Create a new user
   const newUser = await User.create(req.body);
 
-  // Send welcome email to the new user
+  const newCart = new Cart({
+    user: newUser._id,
+    items: [],
+    totalQuantity: 0,
+    totalPrice: 0,
+  });
+  await newCart.save();
+
+  newUser.cart = newCart._id;
+  await newUser.save();
+
   const welcomeEmail = new Email(newUser, 'https://yourwebsite.com');
   await welcomeEmail.sendWelcomeEmail();
 
-  // Send response to the client
-  createSendToken(newUser, 201, res); // Assuming this function sends the JWT token
-  res.status(201).json({
-      status: 'success',
-      data: {
-          user: newUser,
-      },
-  });
+  createSendToken(newUser, 201, res);
 });
 
-exports.login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
-  
-      const { email, password } = req.body;
-  
-      // Check if email and password exist
-      if (!email || !password) {
-        return next(new AppError('Please enter email and password', 400));
-      }
-  
-      // Check if user exists and password is correct
-      const user = await User.findOne({ email }).select('+password');
-      if (!user || !(await user.correctPassword(password, user.password))) {
-        return next(new AppError('Incorrect email or password', 401));
-      }
-  
-      // If everything is okay, send the token
-       signToken(user._id);
+exports.login = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new AppError('Please enter email and password', 400));
+  }
+
+  const user = await User.findOne({ email }).select('+password');
+  if (!user || !(await user.correctPassword(password, user.password))) {
+    return next(new AppError('Incorrect email or password', 401));
+  }
+
+  createSendToken(user, 200, res);
+});
 
 
-    
-     // Convert Unix timestamp to milliseconds
-    
-      // console.log('Token was issued at:', issuedAt.toISOString());
-      // console.log('Token will expire at:', expirationTime.toISOString())
-      createSendToken(user,200,res)
-  
 
-  
-      createSendToken(user, 200, res);
-    
-  };
-
-
-//   export const protect = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         // 1) Check if token exists in headers or cookies
-//         let token: string | undefined;
-//         if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-//             token = req.headers.authorization.split(' ')[1];
-//         } else if (req.cookies.jwt) {
-//             token = req.cookies.jwt;
-//         }
-//         if (!token) {
-//             return next(new AppError('You are not logged in', 401));
-//         }
-
-//         // 2) Verify the token
-//         const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
-
-//         // 3) Check if user exists
-//         const currentUser : typeof User | null   = await User.findById(decoded.id);
-//         if (!currentUser) {
-//             return next(new AppError('The user belonging to this token does not exist.', 401));
-//         }
-
-//         // 4) Check if user changed password after token was issued
-//         if (currentUser.changedPasswordAfter(decoded.iat)) {
-//             return next(new AppError('User recently changed password! Please log in again.', 401));
-//         }
-
-//         // Grant access to protected route
-//         // req.user = currentUser ;
-
-
-// // Attach the user object to the request
-//         res.locals.user = currentUser; // Make the user object available in views (optional)
-//         next();
-//     } catch (err) {
-//         return next(new AppError('Invalid token. Please log in again.', 401));
-//     }
-// };
 
 exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     // 1) Get user

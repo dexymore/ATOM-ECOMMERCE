@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/', itemController.getAllItems);
 router.get('/filterItem',itemController.getSpecificItems)
-router.get('/:id', appMiddlewares.checkIDS,itemController.getItem);
+router.get('/:id', appMiddlewares.checkIDS({ params: ['id'] }), itemController.getItem);
+
 
 
 

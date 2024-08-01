@@ -6,6 +6,7 @@ export const API = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 export const getItems = async () => {
   try {
@@ -30,7 +31,7 @@ export const userLogin = async (email: string, password: string) => {
   // const response = await API.post("users/login", { email, password });
   // return response.data;
   try {
-    const response = await API.post("users/login", { email, password });
+    const response = await API.post("users/login", { email, password },   { withCredentials: true } );
     return response.data;
   } catch (error) {
     console.error("Failed to login:", error);
@@ -43,7 +44,7 @@ export const userSignUp = async (name: string, email: string, password: string,p
   // const response = await API.post("users/signup", { name, email, password,passwordConfirm });
   // return response.data;
   try {
-    const response = await API.post("users/signup", { name, email, password,passwordConfirm });
+    const response = await API.post("users/signup", { name, email, password,passwordConfirm },   { withCredentials: true } );
     return response.data;
   } catch (error) {
     console.error("Failed to signup:", error);

@@ -16,6 +16,7 @@ interface IUser extends Document {
     changedPasswordAfter(JWTTimestamp: number): boolean;
     createPasswordResetToken(): string;
     changedPasswordAfter(JWTTimestamp: number): boolean;
+    cart : mongoose.Types.ObjectId;
 
     
 
@@ -43,6 +44,10 @@ const userSchema: Schema = new Schema({
   passwordResetToken: String,
   passwordResetExpires: Date,
   active:{type:Boolean,default:true,select:false},
+  cart: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Cart',
+  },
 });
 
 

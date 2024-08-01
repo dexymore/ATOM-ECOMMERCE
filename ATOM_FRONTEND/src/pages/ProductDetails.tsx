@@ -4,7 +4,7 @@ import { getOneItem } from '../utils/API';
 import { useState,useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import {addToCart} from '../store/cartThunks';
 
 
 import { cartActions } from '../store/cart';
@@ -33,9 +33,6 @@ interface Item {
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 const dispatch = useDispatch();
-const addItemtoCart = () => {
-  dispatch(cartActions.addItemToCart(product));
-}
 
   
 
@@ -89,7 +86,12 @@ const addItemtoCart = () => {
   
   }, [id]); 
   
-
+  const addItemtoCart = () => {
+    if (product) {
+      dispatch(addToCart(product));
+    }
+  }
+  
 
 
     return (<>
