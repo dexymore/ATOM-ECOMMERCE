@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { getOneItem } from '../utils/API';
 import { useState,useRef } from 'react';
-import { useToaster } from 'react-hot-toast';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../utils/API';
+import { RootState } from '../store';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchCart } from '../store/cartThunks';
 
@@ -92,56 +94,61 @@ const dispatch = useDispatch();
     }
   
   }, [id]); 
+  const navigate= useNavigate();
   
-  const addItemtoCart =async (itemId:string) => {
+  const addItemtoCart = async (itemId: string) => {
     setCartLoading(true);
-    
     setCartError(null);
-    try{
-      const response =await addToCart(itemId);
-   
-          toast.success("Added to cart");
 
-    }
-    catch(error){
-      setCartError("Failed to add to cart");
-    }
-    finally{
-      setCartLoading(false);
-    }
-  
-  
+    try {
+        const response = await addToCart(itemId);
+        
+        // Show success toast
+        toast.success("Added to cart");
 
-  }
+        // Delay navigation to allow the toast to be visible
+        setTimeout(() => {
+            navigate('/cart');
+        }, 1000); // Adjust the delay as needed
+
+    } catch (error) {
+        toast.error("Failed to add to cart");
+        setCartError("Failed to add to cart");
+    } finally {
+        setCartLoading(false);
+    }
+};
+
     return (<>
 <Toaster 
     position="top-center"
     reverseOrder={false}
     toastOptions={{
         style: {
-            border: '1px solid #E2E8F0', 
-            padding: '16px 48px ', 
-            color: '#1A202C', 
-            backgroundColor: '#FFFFFF', 
+            padding: '16px 48px', 
+            color: '#ffffff',  // Default text color
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
             borderRadius: '8px', 
             fontSize: '20px', 
         },
         success: {
             style: {
-                border: '1px solid #48BB78', 
-                color: '#22543D', 
-               backgroundColor: '##48BB78', 
+                border: '1px solid #48BB30', 
+                color: '#ffffff',  // Text color for success toast
+                backgroundColor: '#48BB78',  
+                
             },
         },
         error: {
             style: {
                 border: '1px solid #F56565', 
-                color: '#742A2A', 
+                color: '#ffffff',  // Text color for error toast
+                backgroundColor: '#F56565',  // Background color for error toast
             },
         },
     }}
 />
+
 
         <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
@@ -263,13 +270,14 @@ const dispatch = useDispatch();
                 type="button"
                 onClick={() => addItemtoCart(product._id)}
                 disabled={cartLoading}
-                className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+                className="inline-flex items-center justify-center  rounded-md border-2 border-transparent bg-gray-900 bg-none px-[42px] py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
             >
             {cartLoading ? (
+              <div className=' px-[39.5px]'>
           <FontAwesomeIcon
             icon={faCircleNotch}
             className="mr-2 h-5 w-5 animate-spin"
-          />
+          /></div>
         ) : (
           <><svg
             xmlns="http://www.w3.org/2000/svg"

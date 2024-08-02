@@ -5,7 +5,7 @@ import { fetchCart,} from "../store/cartThunks";
 import ItemsCard from "../components/ItemsCard";
 import { getItems } from "../utils/API";
 import { removeFromCart,addToCart,removeOneItemInstance } from "../utils/API";
-
+import toast, { Toaster } from 'react-hot-toast';
 interface Image {
   public_id: string;
   url: string;
@@ -80,8 +80,15 @@ fetchCart();
     try {
       await removeFromCart(itemId);
       dispatch(fetchCart()); // Fetch the cart after removing an item
-    } catch (error) {
+
+    setTimeout(() => {
+      toast.success('Item removed from cart');
+    }, 500);}
+     catch (error) {
       console.error('Error removing item from cart:', error);
+      setTimeout(() => {
+      toast.error('Error removing item from cart');
+      }, 500);
     }
   };
 
@@ -90,7 +97,13 @@ fetchCart();
     try {
       await addToCart(itemId);
       dispatch(fetchCart()); // Fetch the cart after adding an item
+      setTimeout(() => {
+      toast.success('Item added to cart');
+      }, 500);
     } catch (error) {
+      setTimeout(() => {
+      toast.error('Error adding item to cart');
+      }, 500);
       console.error('Error adding item to cart:', error);
     }
   };
@@ -100,11 +113,51 @@ fetchCart();
     try {
       await removeOneItemInstance(itemId);
       dispatch(fetchCart()); // Fetch the cart after removing all instances
+      setTimeout(() => {
+      toast.success('All instances removed from cart');
+      }, 500);
     } catch (error) {
       console.error('Error removing all instances from cart:', error);
+      setTimeout(() => {
+      toast.error('Error removing all instances from cart');
+      })
     }
   };
-  return (
+
+  const handlevoucher =  (e:any) => {
+    e.preventDefault();
+toast.error('this is not a valid voucher');
+  };
+  return (<>
+  <Toaster 
+    position="bottom-left"
+    reverseOrder={false}
+    toastOptions={{
+        style: {
+            padding: '16px 48px', 
+            color: '#ffffff',  // Default text color
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+            borderRadius: '8px', 
+            fontSize: '20px', 
+        },
+        success: {
+            style: {
+                border: '1px solid #48BB30', 
+                color: '#ffffff',  // Text color for success toast
+                backgroundColor: '#48BB78',  
+                
+            },
+        },
+        error: {
+            style: {
+                border: '1px solid #F56565', 
+                color: '#ffffff',  // Text color for error toast
+                backgroundColor: '#F56565',  // Background color for error toast
+            },
+        },
+    }}
+/>
+
     <section className="bg-white py-8">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
@@ -316,6 +369,7 @@ fetchCart();
                 <button
                   type="submit"
                   className="flex w-full items-center justify-center rounded-lg bg-primary-700 bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                onClick={(e)=>handlevoucher(e)}
                 >
                   Apply Code
                 </button>
@@ -324,7 +378,7 @@ fetchCart();
           </div>
         </div>
       </div>
-    </section>
+    </section></>
   );
 };
 

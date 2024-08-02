@@ -15,7 +15,7 @@ import adminRouter from './routes/adminRoutes';
 import itemRouter from './routes/itemRoutes';
 import cartRouter from './routes/cartRoutes';
 
-
+import orderRouter from './routes/orderRoutes'
 
 
 const helmet = require('helmet');
@@ -69,7 +69,7 @@ const helmet = require('helmet');
   app.use('/api/v1/admin', adminRouter);
   app.use('/api/v1/items', itemRouter);
   app.use('/api/v1/carts', cartRouter)
-
+  app.use('/api/v1/orders', orderRouter)
   app.use(errorHandler);
 
   export default app;

@@ -55,25 +55,25 @@ const Login: React.FC = () => {
     reverseOrder={false}
     toastOptions={{
         style: {
-            border: '1px solid #E2E8F0', 
-            padding: '16px 48px ', 
-            color: '#1A202C', 
-            backgroundColor: '#FFFFFF', 
+            padding: '16px 48px', 
+            color: '#ffffff',  // Default text color
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
             borderRadius: '8px', 
             fontSize: '20px', 
         },
         success: {
             style: {
-                border: '1px solid #48BB78', 
-                color: '#22543D', 
-               backgroundColor: '##48BB78', 
+                border: '1px solid #48BB30', 
+                color: '#ffffff',  // Text color for success toast
+                backgroundColor: '#48BB78',  
+                
             },
         },
         error: {
             style: {
                 border: '1px solid #F56565', 
-                color: '#742A2A', 
+                color: '#ffffff',  // Text color for error toast
+                backgroundColor: '#F56565',  // Background color for error toast
             },
         },
     }}
