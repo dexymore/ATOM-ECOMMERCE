@@ -33,6 +33,7 @@ secrets.json
 *.tmp
 *.bak
 
+.env
 
 
 node_modules/
