@@ -34,13 +34,13 @@ const userSchema: Schema = new Schema({
         lowercase: true,
         vlaidate: [validator.isEmail, 'please enter a valid email'],
     },
-    password: {
+  password: {
         type: 'string',
     required: [true, 'a user must have a password'],
     minlength: [8, 'a user password must be more or equal to 8 chars'],
     select: false,
-    },
-    passwordchangedat: { type: Date },
+  },
+  passwordchangedat: { type: Date },
   passwordResetToken: String,
   passwordResetExpires: Date,
   active:{type:Boolean,default:true,select:false},
@@ -106,7 +106,7 @@ userSchema.methods.createPasswordResetToken = function (): string {
 
 userSchema.pre<IUser>('save', function (next) {
     if (!this.isModified('password') || this.isNew) return next();
-    this.passwordChangedAt = new Date(Date.now() - 1000); // Adjusted to set the passwordChangedAt field
+    this.passwordChangedAt = new Date(Date.now() - 1000)
     next();
 });
 

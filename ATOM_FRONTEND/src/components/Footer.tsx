@@ -16,8 +16,8 @@ const Footer: React.FC = () => {
         </span> */}
         <div className="w-full flex md:flex-row flex-col">
           <div className=" flex-1">
-            <h1 className="self-center underline text-2xl font-semibold whitespace-nowrap ">
-              ATOM
+            <h1 className="self-center atom underline text-2xl font-semibold whitespace-nowrap ">
+              AToM
               <span className="text-sm text-black sm:text-center  ">
                 © 2024
               </span>
@@ -122,6 +122,12 @@ const Footer: React.FC = () => {
                     />
                   </a>
                 </div>
+              </li>
+              <li>
+                <p>
+                  disclamer: all images, logos and video are not owned by me and
+                  are used only for enhancing the design of the website not for any commercial purposes
+                </p>
               </li>
             </ul>
           </div>

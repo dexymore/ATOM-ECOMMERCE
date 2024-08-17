@@ -1,39 +1,44 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import classes from "./components.module.css";
-
+import { Link } from "react-router-dom";
 const hiddenMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 30px, rgba(0,0,0,1) 30px, rgba(0,0,0,1) 30px)`;
 const visibleMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 0px, rgba(0,0,0,1) 30px)`;
 
-export default function ImageCard({ image, title ,desc }: { image: string; title?: string ,desc?: string }) {
+export default function ImageCard({ image, title ,desc,video }: {video:string, image: string; title?: string ,desc?: string }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isInView, setIsInView] = useState(false);
 
     return (
-
-            <motion.div
-                initial={false}
-                animate={
-                    isLoaded && isInView
-                        ? { WebkitMaskImage: visibleMask, maskImage: visibleMask }
-                        : { WebkitMaskImage: hiddenMask, maskImage: hiddenMask }
-                }
-                transition={{ duration: 1, delay: 1 }}
-                viewport={{ once: true }}
-                onViewportEnter={() => setIsInView(true)}
-                className={`relative bg-center bg-cover h-[60rem] mt-1 mb-1 ml-[.15rem]  w-[99.5%] rounded-xl overflow-hidden ${classes.collectionImageContianer}`} // Apply collectionImageContianer class here
-            >
-                <img src={image} alt="" onLoad={() => setIsLoaded(true)} className="  object-cover" /> 
-                {/* Maintain aspect ratio using object-cover */}
-                <div className="absolute inset-0 bg-black opacity-50"></div>
-                {title && (
-                    <h3 className={`absolute inset-0 flex items-center justify-center text-white ${classes.collectionImageTitle}`}>{title}</h3>
-                )}
-
+        <motion.div
+        initial={false}
+        className={`relative bg-center bg-cover h-[40rem] mt-1 mb-1 ml-[.15rem] w-[99.5%] rounded-xl overflow-hidden ${classes.collectionImageContianer}`}
+    >
+        <video 
+            src={video}
+            autoPlay
+            loop
+            muted
+            onLoad={() => setIsLoaded(true)} 
+            className="object-cover w-[1450px] h-[800px]"
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-full p-4 h-[100%] bg-black bg-opacity-50 flex flex-col items-center">
+            {title && (
+               <Link
+               to={`/items/${title}`}
+               className={`atom mb-2 px-4 py-2 md:mt-[35%] mt-[110%] bg-transparent border border-white text-white rounded ${classes.collectionImageTitle} hover:border-transparent hover:border-gray-200 hover:text-gray-400`}
+           >
+               {title}
+           </Link>
+           
+            )}
             {desc && (
-                    <h3 className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 flex items-center  text-sm sm:text-base text-neutral-400 ${classes.collectionImageTitle}`}>{desc}</h3>
-                )}
-            </motion.div>
-
+                <h3 className={`text-sm sm:text-base text-neutral-400 ${classes.collectionImageTitle}`}>
+                    {desc}
+                </h3>
+            )}
+        </div>
+    </motion.div>
     );
 }

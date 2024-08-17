@@ -7,7 +7,9 @@ const orderController = require('../contorollers/orderController');
 
 
 
-router.get('/checkout', protect,orderController.getCheckout);
+router.post('/checkout', protect,orderController.getCheckout);
+router.get('/', protect,orderController.getUserOrders);
+
 
 
 

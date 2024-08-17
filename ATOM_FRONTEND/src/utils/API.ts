@@ -4,6 +4,14 @@ import axios from "axios";
 import { fetchCart } from "../store/cartThunks";
 import { Dispatch } from "@reduxjs/toolkit";
 
+
+interface FormData {
+  address: string;
+  phone_number: string;
+  delivery: string;
+  special_note?: string; // Optional field
+}
+
 export const API = axios.create({
   baseURL: "http://localhost:8000/api/v1",
   headers: {
@@ -84,3 +92,57 @@ export const removeOneItemInstance = async (itemId: string) => {
     throw error;
   }
 };
+
+export const createOrderCheckout = async (formData: FormData) => {
+  try {
+    const response = await API.post("/orders/checkout", {
+      formData: formData,
+    });
+
+    return response.data.session.id;
+  } catch (error) {
+    console.error("Failed to checkout:", error);
+    throw error;
+  }
+};
+
+export const getUserOrders = async ()=>{
+  try{
+const response=await API.get("/orders");
+
+return response.data.orders;
+
+  }catch(error){
+    console.error("Failed to get orders:", error);
+    throw error;
+  }
+}
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await API.get("/users/me");
+
+    return response.data.data.user;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw error;
+  }
+};
+
+export const filterItems = async (category: string = "", sex: string = "", size: string = "", name: string = "") => {
+  try {
+    // Build the query string dynamically
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (sex) params.append('sex', sex);
+    if (size) params.append('size', size);
+    if (name) params.append('name', encodeURIComponent(name));
+
+    const response = await API.get(`items/filterItem?${params.toString()}`);
+    console.log(response);
+    return response.data.data.items;
+  } catch (error) {
+    console.error("Failed to filter items:", error);
+    throw error;
+  }
+}

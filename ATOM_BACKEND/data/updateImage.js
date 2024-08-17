@@ -14,7 +14,7 @@ const postProduct = async (product) => {
         'Content-Type': 'application/json'
       }
     });
-    console.log(`Successfully postded product: ${product.name}`);
+    console.log(`Successfully postdcded product: ${product.name}`);
     console.log(response.data);
   } catch (error) {
     console.error(`Error posting product: ${product.name}`);

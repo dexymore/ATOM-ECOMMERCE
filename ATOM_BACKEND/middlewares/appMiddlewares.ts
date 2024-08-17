@@ -50,13 +50,13 @@ export const checkIDS = (fieldsToCheck: { params?: string[], body?: string[] }) 
 }
 
 exports.restrict = (req: Request, res: Response, next: NextFunction) => {
-        // Check if the user is authenticated and if their email ends with '@atom.io'
+       
         if (!req.cookies.Adminjwt) {
-            // User is an admin, allow access to the protected route
+        
             return res.status(403).json({ message: "You don't have permission to access this resource" });
           
         } else {
-            // User is not an admin, deny access with a 403 Forbidden status
+            
        next();
         }
     };

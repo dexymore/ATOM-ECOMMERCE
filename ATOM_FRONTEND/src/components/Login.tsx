@@ -103,7 +103,7 @@ const Login: React.FC = () => {
                     />
                 </div>
                 <div className="mt-8">
-                    <button type="submit" className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>
+                    <button type="submit" className="bg-gray-800 atom text-white font-bold py-2 px-4 w-full rounded hover:bg-black">Login</button>
                 </div>
             </form>
             <div className="mt-4 flex items-center justify-between">

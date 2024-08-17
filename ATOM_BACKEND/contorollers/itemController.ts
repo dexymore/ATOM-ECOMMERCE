@@ -148,31 +148,35 @@ res.status(204).json({})
 
 
 exports.getSpecificItems = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const queryObj = { ...req.query };
+  const queryObj = { ...req.query };
 
-    // List of fields that can be filtered
-    const allowedFields = ['category', 'size', 'sex'];
 
-    // Remove fields from queryObj that are not allowed
-    Object.keys(queryObj).forEach(key => {
-        if (!allowedFields.includes(key)) {
-            delete queryObj[key];
-        }
-    });
+  const allowedFields = ['category', 'size', 'sex', 'name'];
 
-    // Use the cleaned queryObj to perform the query
+  // Remove fields from queryObj that are not allowed
+  Object.keys(queryObj).forEach(key => {
+      if (!allowedFields.includes(key)) {
+          delete queryObj[key];
+      }
+  });
 
-    const items = await Item.find(queryObj);
+  // Modify the query to perform partial matching for the name field
+  if (queryObj.name) {
+      queryObj.name = { $regex: queryObj.name, $options: 'i' }; // 'i' makes it case-insensitive
+  }
 
-    if (!items.length) {
-        return next(new AppError('No items found matching the criteria', 404));
-    }
 
-    res.status(200).json({
-        status: 'success',
-        results: items.length,
-        data: {
-            items,
-        },
-    });
+  const items = await Item.find(queryObj);
+
+  if (!items.length) {
+      return next(new AppError('No items found matching the criteria', 404));
+  }
+
+  res.status(200).json({
+      status: 'success',
+      results: items.length,
+      data: {
+          items,
+      },
+  });
 });

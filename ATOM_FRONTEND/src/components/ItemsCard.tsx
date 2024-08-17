@@ -60,10 +60,10 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
             </div>
             <div className="p-2">
                 <div className="flex-col items-center justify-between">
-                    <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                    <p className="block  text-base antialiased font-medium leading-relaxed text-blue-gray-900">
                         {item.name}
                     </p>
-                    <p className="block font-sans text-base antialiased font-medium leading-relaxed text-gray-500">
+                    <p className="block  text-base antialiased font-medium leading-relaxed text-gray-500">
                         ${item.price}
                     </p>
                 </div>

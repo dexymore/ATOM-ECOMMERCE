@@ -10,11 +10,12 @@
     font-weight: bold; /* Make the text bold */
     text-transform: uppercase; /* Convert text to uppercase */
     letter-spacing: 1px; /* Add letter spacing */
+    ; /* Add a border */
 }
 
 .collectionImageContianer {
-    width: 600px;
-    height: 800px;
+    width: 400px;
+    height: 600px;
     overflow: hidden;
 }
 
@@ -22,6 +23,7 @@
 
 .collectionImageContianer:hover img {
     animation: scaleAnimation 0.5s ease forwards;
+    -webkit-animation: scaleAnimation 0.5s ease forwards;
 }
 
 @keyframes scaleAnimation {

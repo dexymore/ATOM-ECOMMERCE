@@ -32,3 +32,25 @@ export const userLoginJoiSchema = Joi.object({
         'string.base': 'Password must be a string'
     })
 });
+
+export const userCheckoutSchema = Joi.object({
+    address: Joi.string().required().messages({
+        'any.required': 'Please enter your address',
+        'string.base': 'Address must be a string'
+    }),
+    phone_number: Joi.string()
+    .pattern(/^[0-9]+$/) // Only digits allowed
+    .required()
+    .messages({
+      'any.required': 'Please enter your phone number',
+      'string.pattern.base': 'Phone number must only contain digits',
+      'string.base': 'Phone number must be a string'
+    }),
+    delivery: Joi.string().required().messages({
+        'any.required': 'Please select a delivery option',
+        'string.base': 'Delivery must be a string'
+    }),
+    special_note: Joi.string().allow('').messages({
+        'string.base': 'Special note must be a string'
+    })
+});

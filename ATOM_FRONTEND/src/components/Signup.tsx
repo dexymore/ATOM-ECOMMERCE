@@ -126,7 +126,7 @@ const SignUp: React.FC = () => {
                     />
                 </div>
                 <div className="mt-8">
-                    <button type="submit" className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Sign Up</button>
+                    <button type="submit" className="atom bg-gray-800 text-white font-bold py-2 px-4 w-full rounded hover:bg-black">Sign Up</button>
                 </div>
             </form>
         </div>

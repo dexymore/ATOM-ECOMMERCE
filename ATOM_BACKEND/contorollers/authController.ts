@@ -171,3 +171,10 @@ exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: 
 //     });
 // });
 
+
+exports.verifyAuth = asyncHandler(async (req, res, next) => {
+if(req.user){
+  res.status(200).json({status:"success",isAuthenticted:true})
+}
+
+});

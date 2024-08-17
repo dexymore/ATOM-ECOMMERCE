@@ -11,7 +11,7 @@ const CategoryFilter: React.FC = () => {
   const [advancedSearch, setAdvancedSearch] = useState<boolean>(false);
 
     return (
-<div className="flex-1">
+<div className="flex-1 ">
   <div className="mx-32 my-8">
     <div className="flex flex-col">
       <div className=" px-6  border-b border-gray-400  bg-transparent">
@@ -92,9 +92,9 @@ const CategoryFilter: React.FC = () => {
           </div>
 
           <div className="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex mb-6">
-           <p className="text-black-600  px-4 py-2 cursor-pointer" onClick={() => setAdvancedSearch(!advancedSearch)}>Advanced Search <span>
+           <p className="text-black-600  border-collapse px-4 py-2 cursor-pointer" onClick={() => setAdvancedSearch(!advancedSearch)}>Advanced Search <span>
           <FontAwesomeIcon icon={advancedSearch?faChevronUp:faChevronDown} /></span></p>
-            <button className={`rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring ${advancedSearch?"grid":"hidden"}` }>Search</button>
+            <button className={`atom rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring ${advancedSearch?"grid":"hidden"}` }>Search</button>
           </div>
         </form>
       </div>

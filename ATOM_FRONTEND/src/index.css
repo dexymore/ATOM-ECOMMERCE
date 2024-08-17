@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .magnify-container {
   position: relative;
   overflow: hidden;
@@ -30,7 +29,6 @@
   transform-origin: center center;
 }
 
-
 .underline {
   display: inline-block;
   position: relative;
@@ -38,7 +36,7 @@
   text-decoration: none;
 }
 .underline::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
@@ -55,21 +53,41 @@
   transform-origin: bottom left;
 }
 .custom-shadow-top {
-  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05), 0 -1px 2px -1px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 -1px 2px -1px rgba(0, 0, 0, 0.02);
 }
-.service-cards-bg{
-    --s: 100px;
-    /*thesize*/--c1: #ffffff;
-    /*color1*/--c2: #fafafa;
-    /*color2*/--c3: #000000;
-    /*color3*/--_g: 50%,#0000 37%,var(--c1) 39% 70%,#0000 72%;
-    --_t: 50%,var(--c2) 40deg,var(--c3) 0 140deg,var(--c2) 0 180deg,#0000 0;
-    --_s: 47% 50% at;
-    background:       radial-gradient(var(--_s) -10% var(--_g)) 0 calc(var(--s)/2),      radial-gradient(var(--_s) -10% var(--_g)) calc(var(--s)/2) 0,      radial-gradient(var(--_s) 110% var(--_g)),      radial-gradient(var(--_s) 110% var(--_g)) calc(var(--s)/2) calc(var(--s)/2),      conic-gradient(from   0deg at 55% var(--_t)) calc(var(--s)/4) 0,      conic-gradient(from 180deg at 45% var(--_t)) calc(var(--s)/4) 0,      var(--c2);
-    background-size: var(--s) var(--s);
-    border-radius:100% 10% 2% 3% / 5% 3% 100% 100%  ;
-    -webkit-border-radius:100% 10% 2% 3% / 5% 3% 100% 100%  ;
-    -moz-border-radius:100% 10% 2% 3% / 5% 3% 100% 100%  ;
-    -ms-border-radius:100% 10% 2% 3% / 5% 3% 100% 100%  ;
-    -o-border-radius:100% 10% 2% 3% / 5% 3% 100% 100%  ;
+.service-cards-bg {
+  --s: 100px;
+  /*thesize*/
+  --c1: #ffffff;
+  /*color1*/
+  --c2: #fafafa;
+  /*color2*/
+  --c3: #000000;
+  /*color3*/
+  --_g: 50%, #0000 37%, var(--c1) 39% 70%, #0000 72%;
+  --_t: 50%, var(--c2) 40deg, var(--c3) 0 140deg, var(--c2) 0 180deg, #0000 0;
+  --_s: 47% 50% at;
+  background: radial-gradient(var(--_s) -10% var(--_g)) 0 calc(var(--s) / 2),
+    radial-gradient(var(--_s) -10% var(--_g)) calc(var(--s) / 2) 0,
+    radial-gradient(var(--_s) 110% var(--_g)),
+    radial-gradient(var(--_s) 110% var(--_g)) calc(var(--s) / 2)
+      calc(var(--s) / 2),
+    conic-gradient(from 0deg at 55% var(--_t)) calc(var(--s) / 4) 0,
+    conic-gradient(from 180deg at 45% var(--_t)) calc(var(--s) / 4) 0, var(--c2);
+  background-size: var(--s) var(--s);
+  border-radius: 100% 10% 2% 3% / 5% 3% 100% 100%;
+  -webkit-border-radius: 100% 10% 2% 3% / 5% 3% 100% 100%;
+  -moz-border-radius: 100% 10% 2% 3% / 5% 3% 100% 100%;
+  -ms-border-radius: 100% 10% 2% 3% / 5% 3% 100% 100%;
+  -o-border-radius: 100% 10% 2% 3% / 5% 3% 100% 100%;
+}
+
+body {
+  font-family: "Chivo Mono", sans-serif;
+}
+
+.atom {
+  font-family: "Daniel", sans-serif;
+  font-family: "Daniel Black", sans-serif;
 }

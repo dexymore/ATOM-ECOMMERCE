@@ -72,7 +72,9 @@ const dispatch = useDispatch();
   };
    useEffect(() => {
     const fetchItemDetails = async () => {
+      setLoading(true);
       try {
+        
         const itemDetails = await getOneItem(id);
         setProduct(itemDetails);
         setMainImage(itemDetails.images[0]?.url||"")
@@ -181,7 +183,14 @@ const dispatch = useDispatch();
             </ol> */}
           </nav> 
       
-          <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
+          {loading ? (
+          <div className="flex items-center justify-center w-full h-[600px]">
+            <FontAwesomeIcon
+              icon={faCircleNotch}
+              className="text-black h-12 w-12 animate-spin"
+            />
+          </div>
+        ) :(<div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
             <div className="lg:col-span-3 lg:row-end-1">
               <div className="lg:flex lg:items-start">
                 <div className="lg:order-2 lg:ml-5">
@@ -202,7 +211,7 @@ const dispatch = useDispatch();
           <button
             key={index}
             type="button"
-            className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center"
+            className="flex-0 atom aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center"
             onClick={() => setMainImage(image.url)}
           >
             <img className="h-full w-full object-cover" src={image.url} alt={`Image ${index + 1}`} />
@@ -293,7 +302,7 @@ const dispatch = useDispatch();
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
             />
           </svg>
-        <span>Add to Cart</span> </>)}
+        <span className='atom mt-2 ml-1'>Add to Cart</span> </>)}
        
             </button>
               </div>
@@ -335,7 +344,7 @@ const dispatch = useDispatch();
                 <p className="mt-4">Amet consectetur adipisicing elit. Optio numquam enim facere. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore rerum nostrum eius facere, ad neque.</p>
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
       </section>
       
