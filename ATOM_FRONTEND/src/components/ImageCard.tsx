@@ -26,7 +26,7 @@ export default function ImageCard({ image, title ,desc,video }: {video:string, i
         <div className="absolute bottom-0 left-0 w-full p-4 h-[100%] bg-black bg-opacity-50 flex flex-col items-center">
             {title && (
                <Link
-               to={`/items/${title}`}
+               to={`/items?sex=${title}`}
                className={`atom mb-2 px-4 py-2 md:mt-[35%] mt-[110%] bg-transparent border border-white text-white rounded ${classes.collectionImageTitle} hover:border-transparent hover:border-gray-200 hover:text-gray-400`}
            >
                {title}

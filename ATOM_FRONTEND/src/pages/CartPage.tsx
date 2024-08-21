@@ -12,7 +12,7 @@ import {
 } from "../utils/API";
 import toast, { Toaster } from "react-hot-toast";
 
-import { createCheckoutSession } from "../services/checkoutService";
+
 import CheckoutModel from "../components/CheckoutModel";
 import ViewModel from "../components/ViewModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -108,14 +108,14 @@ const CartPage: React.FC = () => {
       await removeFromCart(itemId);
       dispatch(fetchCart());
 
-      setTimeout(() => {
+ 
         toast.success("Item removed from cart");
-      }, 500);
+
     } catch (error) {
       console.error("Error removing item from cart:", error);
-      setTimeout(() => {
+
         toast.error("Error removing item from cart");
-      }, 500);
+
     }
   };
 
@@ -124,13 +124,13 @@ const CartPage: React.FC = () => {
     try {
       await addToCart(itemId);
       dispatch(fetchCart());
-      setTimeout(() => {
+
         toast.success("Item added to cart");
-      }, 500);
+
     } catch (error) {
-      setTimeout(() => {
+
         toast.error("Error adding item to cart");
-      }, 500);
+
       console.error("Error adding item to cart:", error);
     }
   };
@@ -139,14 +139,14 @@ const CartPage: React.FC = () => {
     try {
       await removeOneItemInstance(itemId);
       dispatch(fetchCart());
-      setTimeout(() => {
+
         toast.success("All instances removed from cart");
-      }, 500);
+
     } catch (error) {
       console.error("Error removing all instances from cart:", error);
-      setTimeout(() => {
+
         toast.error("Error removing all instances from cart");
-      });
+
     }
   };
 
@@ -157,33 +157,7 @@ const CartPage: React.FC = () => {
 
   return (
     <>
-      <Toaster
-        position="bottom-left"
-        reverseOrder={false}
-        toastOptions={{
-          style: {
-            padding: "16px 48px",
-            color: "#ffffff", // Default text color
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            borderRadius: "8px",
-            fontSize: "20px",
-          },
-          success: {
-            style: {
-              border: "1px solid #48BB30",
-              color: "#ffffff", // Text color for success toast
-              backgroundColor: "#48BB78",
-            },
-          },
-          error: {
-            style: {
-              border: "1px solid #F56565",
-              color: "#ffffff", // Text color for error toast
-              backgroundColor: "#F56565", // Background color for error toast
-            },
-          },
-        }}
-      />
+      
 
    {  cartLoading? (
      <div className="flex items-center justify-center w-full h-[600px]">

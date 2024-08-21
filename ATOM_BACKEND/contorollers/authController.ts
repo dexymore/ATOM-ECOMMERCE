@@ -26,6 +26,7 @@ export const createSendToken = (user: any, statusCode: number, res: Response): v
     expires: new Date(Date.now() + Number(process.env.JWT_EXPIRES_IN_COOKIE) * 1000), // JWT_EXPIRES_IN_COOKIE should be in seconds
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production', // Cookie will only be sent over HTTPS in production
+    
   };
 
   res.cookie('jwt', token, cookieOptions);

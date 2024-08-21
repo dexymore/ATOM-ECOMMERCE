@@ -4,6 +4,11 @@ import axios from "axios";
 import { fetchCart } from "../store/cartThunks";
 import { Dispatch } from "@reduxjs/toolkit";
 
+interface error{
+  message:string;
+  status:number;
+}
+
 
 interface FormData {
   address: string;
@@ -131,18 +136,29 @@ export const getCurrentUser = async () => {
 
 export const filterItems = async (category: string = "", sex: string = "", size: string = "", name: string = "") => {
   try {
-    // Build the query string dynamically
+    console.log(name);
     const params = new URLSearchParams();
     if (category) params.append('category', category);
     if (sex) params.append('sex', sex);
     if (size) params.append('size', size);
-    if (name) params.append('name', encodeURIComponent(name));
+    if (name) params.append('name', name);
 
     const response = await API.get(`items/filterItem?${params.toString()}`);
-    console.log(response);
+ 
     return response.data.data.items;
   } catch (error) {
-    console.error("Failed to filter items:", error);
-    throw error;
+     return error.response.data ;
+
   }
 }
+
+export const verifyUser = async () => {
+  try {
+    const response = await API.get("/users/verify", { withCredentials: true });
+    console.log("response from verify api",response.data.isAuthenticted)
+    return response.data.isAuthenticted;  // Ensure this returns `true` or `false`
+  } catch (error) {
+    console.error("Failed to verify user:", error);
+    return false;  // Return `false` if verification fails
+  }
+};

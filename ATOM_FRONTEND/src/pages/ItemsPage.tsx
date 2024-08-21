@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import { filterItems } from "../utils/API";
 import ItemsCard from "../components/ItemsCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-import { useParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 interface Item {
   _id: string;
@@ -20,17 +20,17 @@ interface Image {
 }
 
 export const Items: React.FC = () => {
-  const Params = useParams();
-  const navigate = useNavigate();  // Use navigate to modify the URL
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>(searchParams.get("name") || "");
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [category, setCategory] = useState<string>("");
-  const [sex, setSex] = useState<string>(Params.sex || "");  // Default to an empty string if not provided
-  const [size, setSize] = useState<string>("");
+  const [category, setCategory] = useState<string>(searchParams.get("category") || "");
+  const [sex, setSex] = useState<string>(searchParams.get("sex") || "");
+  const [size, setSize] = useState<string>(searchParams.get("size") || "");
+  const [statusResponse, setStatusResponse] = useState<string>("");
 
   const categories = [
     "Bags", "Shoes", "Accessories", "Jeans", "T-Shirts", "Socks", "Dresses", "Jackets",
@@ -44,53 +44,68 @@ export const Items: React.FC = () => {
     { label: "One Size", value: "One Size" },
   ];
 
+  // Function to update query parameters
+  const updateQueryParams = (newParams: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Set or update new query parameters
+    Object.keys(newParams).forEach(key => {
+      if (newParams[key]) {
+        params.set(key, newParams[key]);
+      } else {
+        params.delete(key);
+      }
+    });
+
+    // Update the URL with the new query parameters
+    setSearchParams(params);
+  };
+
   const handleCategoryClick = (category: string) => {
     setCategory(category);
-    setSex(""); 
-    setSize(""); 
-    setSearch(""); 
+    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), category });
     setShowFilters(false);
   };
 
   const handleSexClick = (sex: string) => {
     setSex(sex);
-    setCategory(""); 
-    setSize(""); 
-    setSearch(""); 
+    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), sex });
     setShowFilters(false);
   };
 
   const handleSizeClick = (size: string) => {
     setSize(size);
-    setCategory(""); 
-    setSex(""); 
-    setSearch(""); 
+    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), size });
     setShowFilters(false);
   };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), name: e.target.value });
   };
 
-  const handleSearchSubmit = async () => {
+  const handleSearchSubmit = useCallback(async () => {
     setLoading(true);
     try {
-setSex("");
-      setCategory("");
-      setSize("");
-      
-      const items = await filterItems(category, sex, size, search);
-      setItems(items);
+      const response = await filterItems(category, sex, size, search);
+      setStatusResponse(response.status);
+      if (response.status === "fail") {
+        setError(response.message);
+        setItems([]);
+      } else {
+        setError(null);
+        setItems(response);
+      }
     } catch (error) {
       setError("Failed to fetch items");
     } finally {
       setLoading(false);
     }
-  };
+  }, [category, sex, size, search]);
 
   useEffect(() => {
-    handleSearchSubmit(); 
-  }, [category, sex, size]);
+    handleSearchSubmit();
+  }, [searchParams,handleSearchSubmit]);
 
   return (
     <>
@@ -104,7 +119,7 @@ setSex("");
                     className="bg-transparent"
                     onSubmit={(e) => {
                       e.preventDefault();
-                      handleSearchSubmit(); 
+                      handleSearchSubmit();
                     }}
                   >
                     <div className="relative mb-6 w-full shadow-xl flex items-center">
@@ -145,6 +160,14 @@ setSex("");
                           Category
                         </h1>
                         <ul className="mt-4 space-y-2">
+                                                    <li>
+                            <button
+                              className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
+                              onClick={() => handleCategoryClick("")}
+                            >
+                           All
+                            </button>
+                          </li>
                           {categories.map((cat, index) => (
                             <li
                               key={index}
@@ -154,6 +177,7 @@ setSex("");
                               {cat}
                             </li>
                           ))}
+                      
                         </ul>
                       </div>
                       <div className="flex-1">
@@ -161,6 +185,15 @@ setSex("");
                           Sex
                         </h1>
                         <ul className="mt-4 space-y-2">
+                        <li>
+                            <button
+                              className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
+                              onClick={() =>handleSexClick("")}
+                            >
+                           All
+                            </button>
+                          </li>
+                         
                           {sexCategories.map((sexCategory, index) => (
                             <li
                               key={index}
@@ -170,6 +203,7 @@ setSex("");
                               {sexCategory}
                             </li>
                           ))}
+                          
                         </ul>
                       </div>
                       <div className="flex-1">
@@ -177,6 +211,15 @@ setSex("");
                           Size
                         </h1>
                         <ul className="mt-4 space-y-2">
+                        <li>
+                            <button
+                              className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
+                              onClick={() => handleSizeClick("")}
+                            >
+                           All
+                            </button>
+                          </li>
+                          
                           {sizeCategories.map((sizeCategory, index) => (
                             <li
                               key={index}
@@ -186,11 +229,12 @@ setSex("");
                               {sizeCategory.label}
                             </li>
                           ))}
+                          
                         </ul>
                       </div>
                     </div>
                   </div>
-  
+
                   <div className="flex justify-center mb-2 mt-[-18px]">
                     <button
                       className="px-4 py-2 rounded-md text-slate-800 flex flex-col items-center"
@@ -213,7 +257,13 @@ setSex("");
             </div>
           </div>
         </div>
-  
+
+        {error && (
+          <div className="flex items-center justify-center w-full h-[600px]">
+            <p className="text-black text-3xl">{error}</p>
+          </div>
+        )}
+
         {loading ? (
           <div className="flex items-center justify-center w-full h-[600px]">
             <FontAwesomeIcon
@@ -224,7 +274,8 @@ setSex("");
         ) : (
           <div className="flex-wrap px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {items.map((item: Item) => (
-              <div key={item._id} className="col-span-1">
+              <div key={item._id} className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1">
+                {/* Render your item card */}
                 <ItemsCard item={item} />
               </div>
             ))}

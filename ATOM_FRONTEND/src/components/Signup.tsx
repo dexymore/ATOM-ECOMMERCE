@@ -41,7 +41,7 @@ const SignUp: React.FC = () => {
         if (error) {
             // If there are validation errors, display them using toast.error
           
-            toast.error(error.details[0].message);
+            toast.error(error.details[0].message,{duration: 5000,position: 'top-center'});
             return;
         }
 
@@ -49,45 +49,19 @@ const SignUp: React.FC = () => {
         try {
             const response = await userSignUp(name, email, password, passwordConfirm);
             if (response.status === 'success') {
-                toast.success('Signup successful!');
+                toast.success('Signup successful!' ,{duration: 5000,position: 'top-center'});
                 setTimeout(() => navigate('/items'), 2000);
             } else {
                 toast.error('Signup failed: ' + response.message);
             }
         } catch (error) {
-            toast.error('Signup failed: ' + error);
+            toast.error('Signup failed: ' + error,{duration: 5000,position: 'top-center'});
         }
     };
 
     return (
         <div className="w-full p-8">
-     <Toaster 
-    position="top-center"
-    reverseOrder={false}
-    toastOptions={{
-        style: {
-            border: '1px solid #E2E8F0', 
-            padding: '16px 48px ', 
-            color: '#1A202C', 
-            backgroundColor: '#FFFFFF', 
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
-            borderRadius: '8px', 
-            fontSize: '20px', 
-        },
-        success: {
-            style: {
-                border: '1px solid #48BB78', 
-                color: '#22543D', 
-            },
-        },
-        error: {
-            style: {
-                border: '1px solid #F56565', 
-                color: '#742A2A', 
-            },
-        },
-    }}
-/>
+
             <form onSubmit={handleSubmit}>
                 <div className="mt-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>

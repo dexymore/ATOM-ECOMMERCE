@@ -32,15 +32,15 @@ const Login: React.FC = () => {
         try {
             const response = await userLogin(email, password); // Call userLogin function with username and password
             if (response.status=='success'            ) {
-                toast.success('Login successful!'); // Use toast.success for success messages
+                toast.success('Login successful!' ,{duration: 5000,position: 'top-center'}); // Use toast.success for success messages
                 navigate('/Items');
             } else {
                console.log(response);
-                toast.error('Login failed: ' + response.message); // Use toast.error for error messages
+                toast.error('Login failed: ' + response.message ,{duration: 5000,position: 'top-center'}); // Use toast.error for error messages
             }
         } catch (error) {
             // Handle login error
-            toast.error('Login failed: ' + error);
+            toast.error('Login failed: ' + error ,{duration: 5000,position: 'top-center'});
         }
     };
 
@@ -50,34 +50,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="w-full p-8">
- <Toaster 
-    position="top-center"
-    reverseOrder={false}
-    toastOptions={{
-        style: {
-            padding: '16px 48px', 
-            color: '#ffffff',  // Default text color
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
-            borderRadius: '8px', 
-            fontSize: '20px', 
-        },
-        success: {
-            style: {
-                border: '1px solid #48BB30', 
-                color: '#ffffff',  // Text color for success toast
-                backgroundColor: '#48BB78',  
-                
-            },
-        },
-        error: {
-            style: {
-                border: '1px solid #F56565', 
-                color: '#ffffff',  // Text color for error toast
-                backgroundColor: '#F56565',  // Background color for error toast
-            },
-        },
-    }}
-/>
+
 
             <div className="  flex items-center justify-between"></div>
             <form onSubmit={handleSubmit}>

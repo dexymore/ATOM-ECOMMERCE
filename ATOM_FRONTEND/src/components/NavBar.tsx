@@ -50,7 +50,7 @@ const NavBar: React.FC = () => {
           bannerVisible
             ? "hidden"
             : "top-0 border-white  border-b  shadow-lg t bg-slate-50"
-        } left-0 right-0 z-[200] `}
+        } left-0 right-0 z-[400] `}
         initial={{ y: 0 }}
         animate={{ y: hidden ? "" : 0 }}
         transition={{
@@ -62,13 +62,13 @@ const NavBar: React.FC = () => {
         }}
       >
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <span
+          <Link to={"/"}
             className={` atom relative z-1 p-[10px]  text-2xl md:text-3xl  bg-clip-text text-transparent bg-gradient-to-b from-yellow-600 to-red-900  text-center font-sans font-bold hover:to-slate-800 hover:from-red-900 ${
               bannerVisible ? "text-white" : "text-black"
-            }`}
-          >
+            }`}>
+          
             AToM
-          </span>
+          </Link>
 
           <div
             className={`${

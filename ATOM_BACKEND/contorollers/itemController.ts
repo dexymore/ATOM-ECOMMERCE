@@ -169,7 +169,7 @@ exports.getSpecificItems = asyncHandler(async (req: Request, res: Response, next
   const items = await Item.find(queryObj);
 
   if (!items.length) {
-      return next(new AppError('No items found matching the criteria', 404));
+      return next(new AppError('No items found matching this criteria', 404));
   }
 
   res.status(200).json({
