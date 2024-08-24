@@ -131,7 +131,7 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
                                 onClick={() => copyToClipboard(item._id)}
                                 className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full bg-white border-2 border-gray-300 cursor-pointer hover:border-slate-900 hover:text-slate-900"
                             >
-                                <FontAwesomeIcon icon={faShareNodes} />""
+                                <FontAwesomeIcon icon={faShareNodes} />
                             </button>
                         </div>
                     </div>

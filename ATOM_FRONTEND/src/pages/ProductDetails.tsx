@@ -373,7 +373,7 @@ const ProductDetails: React.FC = () => {
                     <button
                       onClick={() => copyToClipboard(product._id)}
                       className="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-gray-300 text-gray-500 cursor-pointer hover:border-slate-900 hover:text-slate-900"
-                    >""
+                    >
                       <FontAwesomeIcon
                         icon={faShareNodes}
                         className="h-6 w-6"
