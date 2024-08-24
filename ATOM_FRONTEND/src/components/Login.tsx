@@ -71,6 +71,7 @@ const Login: React.FC = () => {
             className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
             type="email"
             value={email}
+            placeholder="enter your email"
             onChange={handleEmailChange}
           />
         </div>
@@ -83,11 +84,14 @@ const Login: React.FC = () => {
               Forget Password?
             </a>
           </div>
+          <label className="hidden text-gray-700 text-sm font-bold mb-2">"</label>
           <input
             className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            placeholder="enter your password"
+
           />
         </div>
         <div className="mt-8">

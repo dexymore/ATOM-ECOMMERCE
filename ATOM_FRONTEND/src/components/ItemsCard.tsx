@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons'; 
 
@@ -131,7 +131,7 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
                                 onClick={() => copyToClipboard(item._id)}
                                 className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full bg-white border-2 border-gray-300 cursor-pointer hover:border-slate-900 hover:text-slate-900"
                             >
-                                <FontAwesomeIcon icon={faShareNodes} />
+                                <FontAwesomeIcon icon={faShareNodes} />""
                             </button>
                         </div>
                     </div>

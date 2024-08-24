@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { userSignUp } from "../utils/API";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
 import { userJoiSchema } from "../utils/JoiValidation";
@@ -85,6 +85,7 @@ const SignUp: React.FC = () => {
             type="text"
             value={name}
             onChange={handleUsernameChange}
+            placeholder="enter your username"
           />
         </div>
         <div className="mt-4">
@@ -96,6 +97,7 @@ const SignUp: React.FC = () => {
             type="email"
             value={email}
             onChange={handleEmailChange}
+            placeholder="enter your email"
           />
         </div>
         <div className="mt-4">
@@ -106,7 +108,10 @@ const SignUp: React.FC = () => {
             className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={handlePasswordChange
+
+            }
+            placeholder="enter your password"
           />
         </div>
         <div className="mt-4">
@@ -118,6 +123,7 @@ const SignUp: React.FC = () => {
             type="password"
             value={passwordConfirm}
             onChange={handlePasswordConfirmChange}
+            placeholder="confirm your password"
           />
         </div>
         <div className="mt-8">

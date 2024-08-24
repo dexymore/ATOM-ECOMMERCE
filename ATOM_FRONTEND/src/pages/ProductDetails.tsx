@@ -3,19 +3,16 @@ import { useParams } from "react-router";
 import { getOneItem } from "../utils/API";
 import { useState, useRef } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { addToCart, filterItems } from "../utils/API";
 import { RootState } from "../store";
-import { useNavigate } from "react-router-dom";
 
-import { fetchCart } from "../store/cartThunks";
-
-import { cartActions } from "../store/cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import ItemsCard from "../components/ItemsCard";
 
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Image {
   public_id: string;
@@ -38,16 +35,16 @@ interface Item {
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch();
+
   const auth = useSelector((state: RootState) => state.auth);
   const [product, setProduct] = useState<Item | undefined>(undefined);
   const [mainImage, setMainImage] = useState<string>(
     product?.images[0]?.url || ""
   );
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+
   const [cartLoading, setCartLoading] = useState<boolean>(false);
-  const [cartError, setCartError] = useState<string | null>(null);
+
   const [lensStyle, setLensStyle] = useState<React.CSSProperties>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const [similarProducts, setSimilarProducts] = useState<Item[]>([]);
@@ -84,7 +81,7 @@ const ProductDetails: React.FC = () => {
 
         setMainImage(itemDetails.images[0]?.url || "");
       } catch (error) {
-        setError("Failed to fetch items");
+        toast.error("Failed to fetch items");
       } finally {
         setLoading(false);
       }
@@ -147,10 +144,10 @@ const ProductDetails: React.FC = () => {
 
   const addItemtoCart = async (itemId: string) => {
     setCartLoading(true);
-    setCartError(null);
+
 
     try {
-      const response = await addToCart(itemId);
+      await addToCart(itemId);
 
       // Show success toast
       toast.success("Added to cart");
@@ -168,7 +165,7 @@ const ProductDetails: React.FC = () => {
         });
         navigate("/auth");
       }
-      setCartError("Failed to add to cart");
+      toast.error("Failed to add to cart");
     } finally {
       setCartLoading(false);
     }
@@ -376,7 +373,7 @@ const ProductDetails: React.FC = () => {
                     <button
                       onClick={() => copyToClipboard(product._id)}
                       className="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-gray-300 text-gray-500 cursor-pointer hover:border-slate-900 hover:text-slate-900"
-                    >
+                    >""
                       <FontAwesomeIcon
                         icon={faShareNodes}
                         className="h-6 w-6"

@@ -8,9 +8,9 @@ import {
   removeFromCart,
   addToCart,
   removeOneItemInstance,
-  createOrderCheckout,
+
 } from "../utils/API";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import CheckoutModel from "../components/CheckoutModel";
 import ViewModel from "../components/ViewModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,8 +31,8 @@ const CartPage: React.FC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const [items, setItems] = useState<Item[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [error, setError] = useState<string | null>(null);
   const [savings, setSavings] = useState<number>(0);
   const [tax, setTax] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -51,7 +51,7 @@ const CartPage: React.FC = () => {
     const loadCart = async () => {
        setCartLoading(true);
       try {
-        await dispatch(fetchCart());
+         dispatch(fetchCart());
       } catch (error) {
         console.error("Failed to fetch cart:", error);
       } finally {
@@ -83,9 +83,9 @@ const CartPage: React.FC = () => {
         const fetchedItems = await getItems();
         setItems(fetchedItems);
       } catch (error) {
-        setError("Failed to fetch items");
+        // setError("Failed to fetch items");
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
     fetchItems();

@@ -1,8 +1,8 @@
 import {verifyUser} from '../utils/API';
 import {authActions} from './auth';
-import {cartActions} from './cart';
+import { AppThunk } from './index'; 
 
-const verifyUserThunk = () => async (dispatch: any) => {
+const verifyUserThunk: AppThunk = () => async (dispatch) => {
     try {
         const response = await verifyUser();
  

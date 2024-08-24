@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, } from "react";
 import { filterItems } from "../utils/API";
 import ItemsCard from "../components/ItemsCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import {
   faCircleNotch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "react-router-dom";
-import { useNavigate, useQuery } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 interface Item {
   _id: string;
@@ -33,7 +33,7 @@ export const Items: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [category, setCategory] = useState<string>(
+  const [category, setCategory] = useState<string |null>(
     searchParams.get("category") || ""
   );
   const [sex, setSex] = useState<string>(searchParams.get("sex") || "");

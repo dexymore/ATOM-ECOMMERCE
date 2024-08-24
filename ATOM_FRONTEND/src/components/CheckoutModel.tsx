@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createOrderCheckout } from "../utils/API";
-import Joi from "joi";
+
 import { loadStripe } from "@stripe/stripe-js";
 import { userCheckoutSchema } from "../utils/JoiValidation"; 
 import toast, { Toaster } from "react-hot-toast";

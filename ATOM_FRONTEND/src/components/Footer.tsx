@@ -1,5 +1,5 @@
 import React from "react";
-import NewsTeller from "../sections/NewsTeller";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -81,6 +81,7 @@ const Footer: React.FC = () => {
               <li>
                 <div className="relative w-[65%]">
                   <input
+                  placeholder="Email Address"
                     className="block w-full p-1 text-sm bg-transparent border-b-2 border-black pr-10"
                     type="email"
                     id="email"
@@ -89,6 +90,7 @@ const Footer: React.FC = () => {
                   <span className="absolute inset-y-0 right-0 flex items-center pr-3">
                     <FontAwesomeIcon
                       icon={faEnvelope}
+                      
                       size="lg"
                       className="text-black"
                     />

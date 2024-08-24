@@ -1,13 +1,9 @@
-import { add } from './API';
+
 
 import axios from "axios";
-import { fetchCart } from "../store/cartThunks";
-import { Dispatch } from "@reduxjs/toolkit";
 
-interface error{
-  message:string;
-  status:number;
-}
+
+
 
 
 interface FormData {
@@ -80,7 +76,7 @@ export const addToCart = async (itemId: string) => {
 
 export const removeFromCart = async (itemId: string) => {
   try {
-    const response = await API.patch("/carts/remove-items", { itemId });
+   await API.patch("/carts/remove-items", { itemId });
 
   } catch (error) {
     console.error("Failed to remove from cart:", error);
@@ -90,7 +86,7 @@ export const removeFromCart = async (itemId: string) => {
 
 export const removeOneItemInstance = async (itemId: string) => {
   try {
-    const response = await API.patch("/carts/remove-all-item-instances", { itemId });
+  await API.patch("/carts/remove-all-item-instances", { itemId });
 
   } catch (error) {
     console.error("Failed to remove one item from cart:", error);
@@ -147,7 +143,7 @@ export const filterItems = async (category: string = "", sex: string = "", size:
  
     return response.data.data.items;
   } catch (error) {
-     return error.response.data ;
+     return error ;
 
   }
 }
@@ -168,7 +164,7 @@ export const logoutUser = async () => {
     const response = await API.get("/users/logout");
     return response.data;
   } catch (error) {
-return error.response.data;
-    throw error;
+return error;
+  
   }
 };
