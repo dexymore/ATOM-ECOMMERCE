@@ -36,7 +36,7 @@ declare global {
 
 app.use(cors({
   origin: 'https://atom-ecommerce-frontend.vercel.app', 
-
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, 
 }));
