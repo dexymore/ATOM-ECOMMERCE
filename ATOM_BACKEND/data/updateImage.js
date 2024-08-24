@@ -3,7 +3,7 @@ const path = require('path');
 const axios = require('axios');
 
 // Read the JSON file
-const productsFilePath = path.join(__dirname, 'items.json');
+const productsFilePath = path.join(__dirname, 'items2.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 // Function to post a product

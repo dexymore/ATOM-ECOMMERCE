@@ -10,7 +10,7 @@ const About: React.FC = () => {
         <div
           style={{
             borderImage: "linear-gradient(to bottom, black, #6b8590) 1",
-            backgroundColor: "black", // Ensure background color is consistent
+            backgroundColor: "black", 
           }}
           className="flex-none border-b-4 border-r-4 border-black flex items-center justify-center w-full md:w-1/2 h-[500px] p-4"
         >

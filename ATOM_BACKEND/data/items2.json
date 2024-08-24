@@ -1,0 +1,23 @@
+[
+
+    {
+      "name": "Suede Loafers",
+      "availability": true,
+      "createdAt": "2024-03-21T12:00:00Z",
+      "discount": 20,
+      "price": 110.00,
+      "category": "Shoes",
+      "description": "Elegant suede loafers with a comfortable fit, perfect for formal and casual occasions.",
+      "size": "M",
+      "stock": 45,
+      "sex": "Male",
+      "images": [
+        "../data/itemImages2/Suede Loafers/suede_loafers_01.jpg",
+        "../data/itemImages2/Suede Loafers/suede_loafers_02.jpg",
+        "../data/itemImages2/Suede Loafers/suede_loafers_03.jpg",
+        "../data/itemImages2/Suede Loafers/suede_loafers_04.jpg",
+        "../data/itemImages2/Suede Loafers/suede_loafers_05.jpg"
+      ]
+    }
+  ]
+  

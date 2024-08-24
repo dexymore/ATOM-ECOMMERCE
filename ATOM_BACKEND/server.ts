@@ -5,15 +5,11 @@ import app from "./app";
 dotenv.config({
   path: ".env",
 });
-// Add a listener for any unchaught expections  events
+
 process.on('uncaughtException', err => {
-  // Log the error name and message to the console
-   console.log("🔴",err.name, err.message);
 
-  // Log that the server is shutting down
-  console.log('uncaughtException','shutting down..');
 
-  // Close the server and exit the process
+
   
     process.exit(1);
 

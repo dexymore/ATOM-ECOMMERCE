@@ -40,35 +40,12 @@ const cartSlice = createSlice({
       state.totalQuantity = action.payload.totalQuantity;
       state.totalPrice = action.payload.totalPrice;
     },
-    // addItemToCart(state, action: PayloadAction<Item | undefined>) {
-    //   const newItem = action.payload;
-    //   if (newItem) {
-    //     const existingCartItem = state.items.find(cartItem => cartItem.itemId._id === newItem._id);
-    //     if (existingCartItem) {
-    //       existingCartItem.quantity++;
-    //     } else {
-    //       state.items.push({ itemId: newItem, quantity: 1 });
-    //     }
-    //     state.totalQuantity++;
-    //     state.totalPrice += newItem.price;
-    //   }
-    // },
-    // removeItemFromCart(state, action: PayloadAction<string>) {
-    //   const itemId = action.payload;
-    //   const existingCartItem = state.items.find(cartItem => cartItem.itemId._id === itemId);
-
-    //   if (existingCartItem) {
-    //     if (existingCartItem.quantity > 1) {
-    //       existingCartItem.quantity--;
-    //       state.totalQuantity--;
-    //       state.totalPrice -= existingCartItem.itemId.price;
-    //     } else {
-    //       state.items = state.items.filter(cartItem => cartItem.itemId._id !== itemId);
-    //       state.totalQuantity--;
-    //       state.totalPrice -= existingCartItem.itemId.price;
-    //     }
-    //   }
-    // },
+    clearCart(state) {
+      state.items = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+    },
+   
   },
 });
 

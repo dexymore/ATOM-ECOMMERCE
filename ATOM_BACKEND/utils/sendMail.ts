@@ -18,7 +18,7 @@ export default class Email {
     }
 
     private newTransport(): Transporter {
-        // Configure your email transport here
+     
         return nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -47,16 +47,23 @@ export default class Email {
     async sendPasswordResetEmail(): Promise<void> {
         // Generate HTML for the password reset email
         const html = `
-            <html>
-                <body>
-                    <h1>Password Reset Request</h1>
-                    <p>You are receiving this email because you requested a password reset.</p>
-                    <p>Click this link to reset your password: <a href="${this.url}">${this.url}</a></p>
-                    <p>If you did not request this, please ignore this email.</p>
-                    <p>Best regards,<br>Admin</p>
-                </body>
-            </html>
-        `;
+        <html>
+            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    <h1 style="color: #333333;">Password Reset Request</h1>
+                    <p style="color: #666666;">You are receiving this email because you requested a password reset.</p>
+                    <p>
+                        <a href="${this.url}" style="display: inline-block; padding: 15px 25px; font-size: 16px; color: #ffffff; background-color: #000000; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                            Reset Your Password
+                        </a>
+                    </p>
+                    <p style="color: #666666;">If you did not request this, please ignore this email.</p>
+                    <p style="color: #666666;">Best regards,<br>Admin</p>
+                </div>
+            </body>
+        </html>
+    `;
+    
 
         await this.sendEmail(html, 'Password Reset Request');
     }

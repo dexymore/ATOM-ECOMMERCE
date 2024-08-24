@@ -16,6 +16,11 @@ import cartRouter from './routes/cartRoutes';
 import webHookRouter from './routes/webHookRoutes';
 import orderRouter from './routes/orderRoutes';
 
+import mongoSanitize from 'express-mongo-sanitize';
+
+
+
+
 const app: Application = express();
 
 declare global {
@@ -28,19 +33,21 @@ declare global {
     }
   }
 }
+
+app.use(mongoSanitize());
 app.post('/api/v1/webhook',express.raw({type:'application/json'}),webhookHandler );
-// Use JSON body parser only for non-webhook routes
+
 app.use(express.json({ limit: '20kb' }));
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Adjust to your frontend URL
+  origin: 'http://localhost:5173', 
   credentials: true,
 }));
 app.use(cookieParser());
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'"], // Adjust as needed
+    scriptSrc: ["'self'", "'unsafe-inline'"], 
   }
 }));
 

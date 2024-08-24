@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareNodes } from '@fortawesome/free-solid-svg-icons'; // Import the share icon
+import { faShareNodes } from '@fortawesome/free-solid-svg-icons'; 
 
 interface Image {
     public_id: string;
@@ -23,13 +23,20 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [prevMouseX, setPrevMouseX] = useState<number | null>(null);
     const [hovered, setHovered] = useState<boolean>(false);
+    const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
 
     const handleMouseMove = (event: React.MouseEvent) => {
         if (prevMouseX !== null) {
             if (event.clientX > prevMouseX && currentImageIndex < images.length - 1) {
-                setCurrentImageIndex((prevIndex) => Math.min(prevIndex + 1, images.length - 1));
+                if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
+                transitionTimeout.current = setTimeout(() => {
+                    setCurrentImageIndex((prevIndex) => Math.min(prevIndex + 1, images.length - 1));
+                }, 20); // Adjust delay as needed (in milliseconds)
             } else if (event.clientX < prevMouseX && currentImageIndex > 0) {
-                setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+                if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
+                transitionTimeout.current = setTimeout(() => {
+                    setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+                }, 20); // Adjust delay as needed (in milliseconds)
             }
         }
         setPrevMouseX(event.clientX);
@@ -37,6 +44,7 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
     };
 
     const handleMouseLeave = () => {
+        if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
         setPrevMouseX(null);
         setCurrentImageIndex(0);
         setHovered(false);
@@ -53,8 +61,8 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
         try {
             await navigator.clipboard.writeText(itemLink);
             toast.success("Link copied to clipboard!", {
-                id: 'clipboard-toast', // Unique ID for this toast
-               position: 'top-center',
+                id: 'clipboard-toast',
+                position: 'top-center',
                 style: {
                     border: '1px solid #48BB98',
                     backgroundColor: '#FFFFFF',
@@ -65,13 +73,12 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
                     padding: '16px 24px',
                     whiteSpace: 'nowrap',
                 },
-                duration: 3000, // Duration in milliseconds
+                duration: 3000, 
             });
         } catch (err) {
             console.error('Failed to copy item link: ', err);
             toast.error("Failed to copy link!", {
-                id: 'clipboard-toast-error', // Unique ID for error toast
-               
+                id: 'clipboard-toast-error', 
                 style: {
                     border: '1px solid #E53E3E',
                     backgroundColor: '#FFFFFF',
@@ -82,7 +89,7 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
                     padding: '16px 24px',
                     whiteSpace: 'nowrap',
                 },
-                duration: 3000, // Duration in milliseconds
+                duration: 3000,
             });
         }
     };
@@ -111,9 +118,11 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
                 </Link>
                 <div className="p-2">
                     <div className="flex-col items-center justify-between">
-                        <p className="block text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                        <Link
+                        to={`/ItemsDetails/${item._id}`}
+                        className="block text-base antialiased font-medium leading-relaxed text-blue-gray-900">
                             {item.name}
-                        </p>
+                        </Link>
                         <div className="flex justify-between items-center">
                             <p className="block text-base antialiased font-medium leading-relaxed text-gray-500">
                                 ${item.price}

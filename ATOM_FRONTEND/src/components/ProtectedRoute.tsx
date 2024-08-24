@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
-import { verifyUser } from '../utils/API'; // Adjust path as needed
+import { verifyUser } from '../utils/API'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,8 +12,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const checkAuth = async () => {
       try {
         const response = await verifyUser(); 
-        console.log('verifyUser response:', response); 
-        setIsAuthenticated(response); // Set the state based on the response
+
+        setIsAuthenticated(response);
       } catch (error) {
         console.error("Failed to verify user:", error);
         setIsAuthenticated(false); 
@@ -36,12 +36,12 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
  
   if (!isAuthenticated) {
-    console.log('Redirecting to /auth');
+    
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
 
 
-  console.log('Rendering protected content');
+  
   return <>{children}</>;
 };
 

@@ -1,9 +1,14 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { filterItems } from "../utils/API";
 import ItemsCard from "../components/ItemsCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faChevronUp,
+  faCircleNotch,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate, useQuery } from "react-router-dom";
 
 interface Item {
   _id: string;
@@ -21,19 +26,30 @@ interface Image {
 
 export const Items: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
+  // const [index, setIndex] = useState<number>(0);
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [category, setCategory] = useState<string>(searchParams.get("category") || "");
+  const [category, setCategory] = useState<string>(
+    searchParams.get("category") || ""
+  );
   const [sex, setSex] = useState<string>(searchParams.get("sex") || "");
   const [size, setSize] = useState<string>(searchParams.get("size") || "");
-  const [statusResponse, setStatusResponse] = useState<string>("");
+
+  const [itemCount, setItemCount] = useState<number>(0);
 
   const categories = [
-    "Bags", "Shoes", "Accessories", "Jeans", "T-Shirts", "Socks", "Dresses", "Jackets",
+    "Bags",
+    "Shoes",
+    "Accessories",
+    "Jeans",
+    "T-Shirts",
+    "Socks",
+    "Dresses",
+    "Jackets",
   ];
 
   const sexCategories = ["Male", "Female", "Unisex"];
@@ -44,12 +60,10 @@ export const Items: React.FC = () => {
     { label: "One Size", value: "One Size" },
   ];
 
-  // Function to update query parameters
   const updateQueryParams = (newParams: Record<string, string>) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    // Set or update new query parameters
-    Object.keys(newParams).forEach(key => {
+    Object.keys(newParams).forEach((key) => {
       if (newParams[key]) {
         params.set(key, newParams[key]);
       } else {
@@ -57,55 +71,95 @@ export const Items: React.FC = () => {
       }
     });
 
-    // Update the URL with the new query parameters
     setSearchParams(params);
   };
 
   const handleCategoryClick = (category: string) => {
     setCategory(category);
-    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), category });
+    updateQueryParams({
+      ...Object.fromEntries(searchParams.entries()),
+      category,
+    });
     setShowFilters(false);
   };
 
   const handleSexClick = (sex: string) => {
     setSex(sex);
-    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), sex });
+    updateQueryParams({
+      ...Object.fromEntries(searchParams.entries()),
+      sex,
+    });
     setShowFilters(false);
   };
 
   const handleSizeClick = (size: string) => {
     setSize(size);
-    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), size });
+
+    updateQueryParams({
+      ...Object.fromEntries(searchParams.entries()),
+      size,
+    });
     setShowFilters(false);
   };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    updateQueryParams({ ...Object.fromEntries(searchParams.entries()), name: e.target.value });
+    updateQueryParams({
+      ...Object.fromEntries(searchParams.entries()),
+      name: e.target.value,
+    });
   };
 
-  const handleSearchSubmit = useCallback(async () => {
+  const handleSearchSubmit = async () => {
     setLoading(true);
     try {
       const response = await filterItems(category, sex, size, search);
-      setStatusResponse(response.status);
+
       if (response.status === "fail") {
         setError(response.message);
         setItems([]);
       } else {
         setError(null);
         setItems(response);
+        setItemCount(response.length > 8 ? 8 : response.length);
       }
     } catch (error) {
       setError("Failed to fetch items");
     } finally {
       setLoading(false);
     }
-  }, [category, sex, size, search]);
+  };
 
   useEffect(() => {
+    const handleSearchSubmit = async () => {
+      setLoading(true);
+      try {
+        const response = await filterItems(
+          searchParams.get("category" || ""),
+          searchParams.get("sex" || ""),
+          searchParams.get("size" || ""),
+          searchParams.get("name" || "")
+        );
+
+        if (response.status === "fail") {
+          setError(response.message);
+          setItems([]);
+        } else {
+          setError(null);
+          setItems(response);
+          setItemCount(response.length > 8 ? 8 : response.length);
+        }
+      } catch (error) {
+        setError("Failed to fetch items");
+      } finally {
+        setLoading(false);
+      }
+    };
     handleSearchSubmit();
-  }, [searchParams,handleSearchSubmit]);
+  }, [searchParams, category, size, sex, search]);
+  const handleLoadMore = () => {
+    setItemCount((prev) => Math.min(prev + 8, items.length));
+  };
 
   return (
     <>
@@ -160,12 +214,12 @@ export const Items: React.FC = () => {
                           Category
                         </h1>
                         <ul className="mt-4 space-y-2">
-                                                    <li>
+                          <li>
                             <button
                               className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
                               onClick={() => handleCategoryClick("")}
                             >
-                           All
+                              All
                             </button>
                           </li>
                           {categories.map((cat, index) => (
@@ -177,7 +231,6 @@ export const Items: React.FC = () => {
                               {cat}
                             </li>
                           ))}
-                      
                         </ul>
                       </div>
                       <div className="flex-1">
@@ -185,15 +238,15 @@ export const Items: React.FC = () => {
                           Sex
                         </h1>
                         <ul className="mt-4 space-y-2">
-                        <li>
+                          <li>
                             <button
                               className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
-                              onClick={() =>handleSexClick("")}
+                              onClick={() => handleSexClick("")}
                             >
-                           All
+                              All
                             </button>
                           </li>
-                         
+
                           {sexCategories.map((sexCategory, index) => (
                             <li
                               key={index}
@@ -203,7 +256,6 @@ export const Items: React.FC = () => {
                               {sexCategory}
                             </li>
                           ))}
-                          
                         </ul>
                       </div>
                       <div className="flex-1">
@@ -211,25 +263,26 @@ export const Items: React.FC = () => {
                           Size
                         </h1>
                         <ul className="mt-4 space-y-2">
-                        <li>
+                          <li>
                             <button
                               className="text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500"
                               onClick={() => handleSizeClick("")}
                             >
-                           All
+                              All
                             </button>
                           </li>
-                          
+
                           {sizeCategories.map((sizeCategory, index) => (
                             <li
                               key={index}
                               className={`text-gray-500 cursor-pointer py-2 px-4 rounded-md font-semibold hover:text-indigo-500 focus:text-indigo-500`}
-                              onClick={() => handleSizeClick(sizeCategory.value)}
+                              onClick={() =>
+                                handleSizeClick(sizeCategory.value)
+                              }
                             >
                               {sizeCategory.label}
                             </li>
                           ))}
-                          
                         </ul>
                       </div>
                     </div>
@@ -272,14 +325,30 @@ export const Items: React.FC = () => {
             />
           </div>
         ) : (
-          <div className="flex-wrap px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {items.map((item: Item) => (
-              <div key={item._id} className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1">
-                {/* Render your item card */}
-                <ItemsCard item={item} />
-              </div>
-            ))}
-          </div>
+          <>
+            {" "}
+            <div className="flex-wrap px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {items.slice(0, itemCount).map((item: Item) => (
+                <div
+                  key={item._id}
+                  className="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1"
+                >
+                  <ItemsCard item={item} />
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 mb-6">
+              {items.length !== itemCount && (
+                <button
+                  className="bg-slate-900 hover:bg-black text-white font-bold py-2 px-4 rounded-full"
+                  onClick={handleLoadMore}
+                >
+                  {" "}
+                  load more{" "}
+                </button>
+              )}
+            </div>
+          </>
         )}
       </section>
     </>

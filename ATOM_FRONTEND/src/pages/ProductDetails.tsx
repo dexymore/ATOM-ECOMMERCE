@@ -4,7 +4,7 @@ import { getOneItem } from "../utils/API";
 import { useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../utils/API";
+import { addToCart, filterItems } from "../utils/API";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import { fetchCart } from "../store/cartThunks";
 import { cartActions } from "../store/cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import ItemsCard from "../components/ItemsCard";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -38,7 +39,7 @@ interface Item {
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-
+  const auth = useSelector((state: RootState) => state.auth);
   const [product, setProduct] = useState<Item | undefined>(undefined);
   const [mainImage, setMainImage] = useState<string>(
     product?.images[0]?.url || ""
@@ -49,7 +50,7 @@ const ProductDetails: React.FC = () => {
   const [cartError, setCartError] = useState<string | null>(null);
   const [lensStyle, setLensStyle] = useState<React.CSSProperties>({});
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const [similarProducts, setSimilarProducts] = useState<Item[]>([]);
   const handleMouseMove = (e: React.MouseEvent) => {
     if (containerRef.current) {
       const { left, top, width, height } =
@@ -75,8 +76,13 @@ const ProductDetails: React.FC = () => {
       try {
         const itemDetails = await getOneItem(id);
         setProduct(itemDetails);
+        const similarItems = await filterItems("", itemDetails.sex, "", "");
+        const filteredItems = similarItems.filter(
+          (item: Item) => item._id !== id
+        );
+        setSimilarProducts(filteredItems);
+
         setMainImage(itemDetails.images[0]?.url || "");
-        console.log(itemDetails);
       } catch (error) {
         setError("Failed to fetch items");
       } finally {
@@ -155,6 +161,13 @@ const ProductDetails: React.FC = () => {
       }, 1000); // Adjust the delay as needed
     } catch (error) {
       toast.error("Failed to add to cart", { id: "add-to-cart-error" });
+      if (!auth.loggedIn) {
+        toast.error("Please login to add items to cart", {
+          id: "add-to-cart-error",
+          position: "top-center",
+        });
+        navigate("/auth");
+      }
       setCartError("Failed to add to cart");
     } finally {
       setCartLoading(false);
@@ -241,7 +254,7 @@ const ProductDetails: React.FC = () => {
                       ref={containerRef}
                     >
                       <img
-                        className="w-full h-auto object-cover magnify-image"
+                        className="w-[700px] h-[850px] object-cover magnify-image"
                         src={mainImage}
                         alt="Main Image"
                       />
@@ -251,7 +264,7 @@ const ProductDetails: React.FC = () => {
 
                   <div className="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0">
                     <div className="flex flex-row items-start lg:flex-col">
-                      {product?.images.slice(0, 4).map((image, index) => (
+                      {product?.images.slice(0, 5).map((image, index) => (
                         <button
                           key={index}
                           type="button"
@@ -435,24 +448,24 @@ const ProductDetails: React.FC = () => {
                   </nav>
                 </div>
 
-                <div className="mt-8 flow-root sm:mt-12">
+                <div className="mt-8 w-full sm:mt-12">
                   <h1 className="text-3xl font-bold">Delivered To Your Door</h1>
                   <p className="mt-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quia accusantium nesciunt fuga.
+                    from atom to your doorstep, we deliver your items in the best condition
                   </p>
                   <h1 className="mt-8 text-3xl font-bold">
-                    From Our Factories
+                   you may also like
                   </h1>
-                  <p className="mt-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Optio numquam enim facere.
-                  </p>
-                  <p className="mt-4">
-                    Amet consectetur adipisicing elit. Optio numquam enim
-                    facere. Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Dolore rerum nostrum eius facere, ad neque.
-                  </p>
+                  <div className="flex w-[100%] overflow-x-auto space-x-0.5 sm:space-x-4 py-4 px-1">
+                    {similarProducts.map((item: Item) => (
+                      <div
+                        key={item._id}
+                        className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 min-w-[150px] sm:min-w-[200px]"
+                      >
+                        <ItemsCard item={item} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

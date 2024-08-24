@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { IItem } from './itemModel'; // Ensure the correct path to itemModel
+import { IItem } from './itemModel'; 
 
 interface ICartItem {
   itemId: mongoose.Types.ObjectId;

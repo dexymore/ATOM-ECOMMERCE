@@ -30,10 +30,11 @@
     "stock": 75,
     "sex": "Female",
     "images": [
-      "../data/itemImages/Floral Summer Dress/24184390-1-blue.jpeg",
-      "../data/itemImages/Floral Summer Dress/24184390-2.jpeg",
-      "../data/itemImages/Floral Summer Dress/24184390-3.jpeg",
-      "../data/itemImages/Floral Summer Dress/24184390-4.jpeg"
+      "../data/itemImages/Floral Summer Dress/019A4038.jpeg",
+      "../data/itemImages/Floral Summer Dress/019A4042.jpeg",
+      "../data/itemImages/Floral Summer Dress/019A4057.jpeg",
+      "../data/itemImages/Floral Summer Dress/019A4064.jpeg",
+      "../data/itemImages/Floral Summer Dress/019A4060.jpeg"
     ]
   },
   {
@@ -201,6 +202,158 @@
       "../data/itemImages/Casual_Backpack/c7nDwwYg-2.jpeg",
       "../data/itemImages/Casual_Backpack/PROD_COL_91471_1408_FRONT34-1.jpg",
       "../data/itemImages/Casual_Backpack/samosnite-Tech-ICT-Backpack-Black-2-1.jpg"
+    ]
+  },
+
+  {
+    "name": "Striped Midi Dress",
+    "availability": true,
+    "createdAt": "2024-03-25T12:00:00Z",
+    "discount": 15,
+    "price": 49.99,
+    "category": "Dresses",
+    "description": "A perfect blend of style and comfort, our Striped Midi Dress is great for both casual and formal outings.",
+    "size": "S",
+    "stock": 40,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Striped Midi Dress/striped_midi_dress_01.jpg",
+      "../data/itemImages/Striped Midi Dress/striped_midi_dress_02.jpg",
+      "../data/itemImages/Striped Midi Dress/striped_midi_dress_04.jpg",
+      "../data/itemImages/Striped Midi Dress/striped_midi_dress_05.jpg",
+      "../data/itemImages/Striped Midi Dress/striped_midi_dress_03.jpg"
+    ]
+  },
+  {
+    "name": "Leather Crossbody Bag",
+    "availability": true,
+    "createdAt": "2024-03-26T12:00:00Z",
+    "discount": 10,
+    "price": 79.99,
+    "category": "Bags",
+    "description": "Our Leather Crossbody Bag is a sleek and stylish accessory, perfect for carrying your essentials.",
+    "size": "One Size",
+    "stock": 60,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Leather Crossbody Bag/leather_crossbody_bag_01.jpg",
+      "../data/itemImages/Leather Crossbody Bag/leather_crossbody_bag_02.jpg",
+      "../data/itemImages/Leather Crossbody Bag/leather_crossbody_bag_03.jpg",
+      "../data/itemImages/Leather Crossbody Bag/leather_crossbody_bag_04.jpg",
+      "../data/itemImages/Leather Crossbody Bag/leather_crossbody_bag_05.jpg"
+    ]
+  },
+  {
+    "name": "High-Waisted Skinny Jeans",
+    "availability": true,
+    "createdAt": "2024-03-27T12:00:00Z",
+    "discount": null,
+    "price": 54.99,
+    "category": "Jeans",
+    "description": "Our High-Waisted Skinny Jeans provide a flattering fit and are perfect for any casual outfit.",
+    "size": "M",
+    "stock": 70,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/High-Waisted Skinny Jeans/high_waisted_skinny_jeans_01.jpg",
+      "../data/itemImages/High-Waisted Skinny Jeans/high_waisted_skinny_jeans_02.jpg",
+      "../data/itemImages/High-Waisted Skinny Jeans/high_waisted_skinny_jeans_03.jpg",
+      "../data/itemImages/High-Waisted Skinny Jeans/high_waisted_skinny_jeans_04.jpg"
+    ]
+  },
+  {
+    "name": "Chunky Heeled Boots",
+    "availability": true,
+    "createdAt": "2024-03-28T12:00:00Z",
+    "discount": 20,
+    "price": 99.99,
+    "category": "Shoes",
+    "description": "Step out in style with our Chunky Heeled Boots, designed for both comfort and elegance.",
+    "size": "7",
+    "stock": 30,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Chunky Heeled Boots/chunky_heeled_boots_01.jpg",
+      "../data/itemImages/Chunky Heeled Boots/chunky_heeled_boots_02.jpg",
+      "../data/itemImages/Chunky Heeled Boots/chunky_heeled_boots_03.jpg",
+      "../data/itemImages/Chunky Heeled Boots/chunky_heeled_boots_04.jpg",
+      "../data/itemImages/Chunky Heeled Boots/chunky_heeled_boots_05.jpg"
+    ]
+  },
+  {
+    "name": "Silk Scarf",
+    "availability": true,
+    "createdAt": "2024-03-29T12:00:00Z",
+    "discount": 5,
+    "price": 29.99,
+    "category": "Accessories",
+    "description": "Our luxurious Silk Scarf adds a touch of elegance to any outfit, available in various vibrant colors.",
+    "size": "One Size",
+    "stock": 80,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Silk Scarf/silk_scarf_01.jpg",
+      "../data/itemImages/Silk Scarf/silk_scarf_02.jpg",
+      "../data/itemImages/Silk Scarf/silk_scarf_03.jpg",
+         "../data/itemImages/Silk Scarf/silk_scarf_04.jpg",
+            "../data/itemImages/Silk Scarf/silk_scarf_05.jpg"
+    ]
+  },
+  {
+    "name": "Cotton Crew Socks",
+    "availability": true,
+    "createdAt": "2024-03-30T12:00:00Z",
+    "discount": null,
+    "price": 9.99,
+    "category": "Socks",
+    "description": "Our Cotton Crew Socks are breathable, soft, and perfect for daily wear.",
+    "size": "One Size",
+    "stock": 150,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Cotton Crew Socks/cotton_crew_socks_01.jpg",
+      "../data/itemImages/Cotton Crew Socks/cotton_crew_socks_02.jpg",
+      "../data/itemImages/Cotton Crew Socks/cotton_crew_socks_03.jpg",
+      "../data/itemImages/Cotton Crew Socks/cotton_crew_socks_04.jpg"
+    ]
+  },
+  {
+    "name": "Faux Leather Jacket",
+    "availability": true,
+    "createdAt": "2024-03-31T12:00:00Z",
+    "discount": 25,
+    "price": 89.99,
+    "category": "Jackets",
+    "description": "Our Faux Leather Jacket offers an edgy, stylish look with a soft, comfortable feel.",
+    "size": "M",
+    "stock": 35,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Faux Leather Jacket/faux_leather_jacket_01.jpg",
+      "../data/itemImages/Faux Leather Jacket/faux_leather_jacket_02.jpg",
+      "../data/itemImages/Faux Leather Jacket/faux_leather_jacket_03.jpg",
+      "../data/itemImages/Faux Leather Jacket/faux_leather_jacket_04.jpg",
+      "../data/itemImages/Faux Leather Jacket/faux_leather_jacket_05.jpg"
+
+    ]
+  },
+  {
+    "name": "Graphic Crop Tee",
+    "availability": true,
+    "createdAt": "2024-04-01T12:00:00Z",
+    "discount": 10,
+    "price": 29.99,
+    "category": "T-Shirts",
+    "description": "Our Graphic Crop Tee features bold prints on soft fabric, perfect for a casual summer look.",
+    "size": "S",
+    "stock": 55,
+    "sex": "Female",
+    "images": [
+      "../data/itemImages/Graphic Crop Tee/graphic_crop_tee_01.jpg",
+      "../data/itemImages/Graphic Crop Tee/graphic_crop_tee_02.jpg",
+      "../data/itemImages/Graphic Crop Tee/graphic_crop_tee_03.jpg",
+      "../data/itemImages/Graphic Crop Tee/graphic_crop_tee_04.jpg",
+      "../data/itemImages/Graphic Crop Tee/graphic_crop_tee_05.jpg"
     ]
   }
 ]

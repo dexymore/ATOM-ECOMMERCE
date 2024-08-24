@@ -14,11 +14,11 @@ interface FormData {
   address: string;
   phone_number: string;
   delivery: string;
-  special_note?: string; // Optional field
+  special_note?: string; 
 }
 
 export const API = axios.create({
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/v1`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -69,7 +69,7 @@ export const userSignUp = async (name: string, email: string, password: string,p
 
 export const addToCart = async (itemId: string) => {
   try {
-    const response = await API.put("/carts/add-items", { itemId });
+    const response = await API.patch("/carts/add-items", { itemId });
 
     return response.data;
   } catch (error) {
@@ -80,7 +80,7 @@ export const addToCart = async (itemId: string) => {
 
 export const removeFromCart = async (itemId: string) => {
   try {
-    const response = await API.put("/carts/remove-items", { itemId });
+    const response = await API.patch("/carts/remove-items", { itemId });
 
   } catch (error) {
     console.error("Failed to remove from cart:", error);
@@ -90,7 +90,7 @@ export const removeFromCart = async (itemId: string) => {
 
 export const removeOneItemInstance = async (itemId: string) => {
   try {
-    const response = await API.put("/carts/remove-all-item-instances", { itemId });
+    const response = await API.patch("/carts/remove-all-item-instances", { itemId });
 
   } catch (error) {
     console.error("Failed to remove one item from cart:", error);
@@ -136,7 +136,7 @@ export const getCurrentUser = async () => {
 
 export const filterItems = async (category: string = "", sex: string = "", size: string = "", name: string = "") => {
   try {
-    console.log(name);
+
     const params = new URLSearchParams();
     if (category) params.append('category', category);
     if (sex) params.append('sex', sex);
@@ -155,10 +155,20 @@ export const filterItems = async (category: string = "", sex: string = "", size:
 export const verifyUser = async () => {
   try {
     const response = await API.get("/users/verify", { withCredentials: true });
-    console.log("response from verify api",response.data.isAuthenticted)
-    return response.data.isAuthenticted;  // Ensure this returns `true` or `false`
+
+    return response.data.isAuthenticted;  
   } catch (error) {
     console.error("Failed to verify user:", error);
-    return false;  // Return `false` if verification fails
+    return false;  
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    const response = await API.get("/users/logout");
+    return response.data;
+  } catch (error) {
+return error.response.data;
+    throw error;
   }
 };

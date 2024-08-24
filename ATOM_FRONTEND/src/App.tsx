@@ -13,13 +13,18 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Contact from './pages/Contact'
 import About from './pages/About'
 import { Toaster } from 'react-hot-toast'
-
+import { NotFound } from './pages/NotFound'
+import { useEffect } from 'react'
+import { useDispatch } from "react-redux";
+import verifyUserThunk from './store/authThunks'
 
 
 
 function App() {
-
-
+const dispatch = useDispatch()
+useEffect(() => {
+  dispatch(verifyUserThunk())
+}, [dispatch])
   return (
     <div className="App">
 
@@ -60,6 +65,7 @@ function App() {
      <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
      <Route path='/contact' element={<Contact></Contact>} />
      <Route path='/about' element={<About></About>} />
+     <Route path='*' element={<NotFound></NotFound>} />
 
     </Routes>
      

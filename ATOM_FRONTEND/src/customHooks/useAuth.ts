@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { verifyUser } from '../utils/API'; // Adjust path as needed
+import { verifyUser } from '../utils/API';
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
@@ -9,13 +9,13 @@ const useAuth = () => {
     const checkAuth = async () => {
       try {
         const response = await verifyUser();
-        console.log(response); // Ensure it's a boolean
-        setIsAuthenticated(response); // Directly set the boolean
+  
+        setIsAuthenticated(response); 
       } catch {
         setIsAuthenticated(false);
       }
     };
-
+// 
     checkAuth();
   }, [navigate]);
 

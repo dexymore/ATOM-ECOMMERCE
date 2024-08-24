@@ -30,12 +30,12 @@ const Banner: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAnimate(false); // Remove animation class
+      setAnimate(false); 
 
       setTimeout(() => {
         setAnimate(true);
         setMessageIndex((prevIndex) => (prevIndex + 1) % bannerMessages.length);
-      }, 0); // Add animation class after delay
+      }, 0); 
 
     }, 3000);
 

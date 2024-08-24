@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.get('/', cartController.getAllCarts);
 router.use(protect);
-router.put('/add-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.addItemsToCart);
-router.put('/remove-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeItemsFromCart);
-router.put('/remove-all-item-instances', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeAllItemInstancesFromCart);
+router.patch('/add-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.addItemsToCart);
+router.patch('/remove-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeItemsFromCart);
+router.patch('/remove-all-item-instances', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeAllItemInstancesFromCart);
 router.get('/get-cart', cartController.getOneUserCart);
 
 

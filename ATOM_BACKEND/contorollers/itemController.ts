@@ -76,8 +76,7 @@ res.status(200).json({
 });
 
 export const createItem = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    // Log directory of the controller function
-    // console.log('Controller directory:', __dirname);
+
   
     const { images, ...otherData } = req.body;
   
@@ -95,7 +94,7 @@ export const createItem = asyncHandler(async (req: Request, res: Response, next:
   
     try {
       const uploadPromises = images.map((image: string) => {
-        const filePath = path.resolve(__dirname, '../data', image); // Adjust the path as necessary
+        const filePath = path.resolve(__dirname, '../data', image); 
         return uploader(filePath);
       });
       const uploadResults = await Promise.all(uploadPromises);
@@ -121,7 +120,7 @@ export const createItem = asyncHandler(async (req: Request, res: Response, next:
         },
       });
     } catch (error) {
-      console.log(error);
+      
       next(error);
     }
   });
@@ -153,16 +152,16 @@ exports.getSpecificItems = asyncHandler(async (req: Request, res: Response, next
 
   const allowedFields = ['category', 'size', 'sex', 'name'];
 
-  // Remove fields from queryObj that are not allowed
+
   Object.keys(queryObj).forEach(key => {
       if (!allowedFields.includes(key)) {
           delete queryObj[key];
       }
   });
 
-  // Modify the query to perform partial matching for the name field
+
   if (queryObj.name) {
-      queryObj.name = { $regex: queryObj.name, $options: 'i' }; // 'i' makes it case-insensitive
+      queryObj.name = { $regex: queryObj.name, $options: 'i' }; 
   }
 
 

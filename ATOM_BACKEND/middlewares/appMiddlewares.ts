@@ -23,7 +23,7 @@ interface MulterFile {
 
 declare module 'express' {
     interface Request {
-        user?: any; // Assuming IUser is the interface for your user model
+        user?: any; 
     }
 }
 
@@ -61,8 +61,7 @@ exports.restrict = (req: Request, res: Response, next: NextFunction) => {
         }
     };
 
-/////////////////////////multer///////////////////////////
-///upload image
+
 
 const protect = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     let token;

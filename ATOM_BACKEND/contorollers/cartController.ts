@@ -9,7 +9,7 @@ import { IItem,Item } from '../models/itemModel';
 exports.getAllCarts = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
     const carts = await Cart.find();
-    console.log(carts);
+
 
     res.status(200).json({
         status: 'success',
@@ -110,8 +110,8 @@ exports.removeItemsFromCart = asyncHandler(async (req: Request, res: Response, n
 });
 
 exports.removeAllItemInstancesFromCart = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { itemId } = req.body;  // Extract itemId from request body
-    const userId = req.user._id;  // Extract userId from the authenticated user
+    const { itemId } = req.body; 
+    const userId = req.user._id;  
 
     if (!userId) {
         return next(new AppError('User ID is required', 400));

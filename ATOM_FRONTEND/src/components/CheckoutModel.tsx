@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { createOrderCheckout } from "../utils/API";
 import Joi from "joi";
 import { loadStripe } from "@stripe/stripe-js";
-import { userCheckoutSchema } from "../utils/JoiValidation"; // Import your Joi schema
+import { userCheckoutSchema } from "../utils/JoiValidation"; 
 import toast, { Toaster } from "react-hot-toast";
 import { faCreditCard, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 const stripePromise = loadStripe(
-  "pk_test_51PjRyCBc5xV4ImatWQ4G65d6v8tuy99JtCb6pcKcndsyZnr5gMMNMY6LZCNwi9fkiwlFnQcJLWV9PqV9n0P7yVsv00YskwfKGQ"
+  stripePublicKey as string
 );
 
 interface CheckoutModelProps {
@@ -203,7 +203,7 @@ const CheckoutModel: React.FC<CheckoutModelProps> = ({
                     className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                       errors.phone_number ? "border-red-500" : "border-gray-300"
                     }`}
-                    // pattern="[0-9]*" // Updated pattern for numeric input
+       
                     placeholder="Phone number"
                     value={formData.phone_number}
                     onChange={handleChange}

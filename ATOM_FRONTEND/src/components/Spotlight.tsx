@@ -10,8 +10,8 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
       <svg
         className={cn(
           "animate-spotlight pointer-events-none absolute z-[1]",
-          "h-[200%] sm:h-[180%] md:h-[0%] lg:h-[140%] xl:h-[120%] 2xl:h-[100%]", // Adjusted heights for different breakpoints
-          "w-[238%] md:w-[110%] lg:w-[84%]", // Optionally adjust the widths as well
+          "h-[200%] sm:h-[180%] md:h-[0%] lg:h-[140%] xl:h-[120%] 2xl:h-[100%]", 
+          "w-[238%] md:w-[110%] lg:w-[84%]", 
           "opacity-0",
           className
         )}

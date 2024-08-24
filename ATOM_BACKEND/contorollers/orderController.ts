@@ -13,7 +13,7 @@ interface FormData {
   address: string;
   phone_number: string;
   delivery: string;
-  special_note?: string; // Optional field
+  special_note?: string; 
 }
 
 

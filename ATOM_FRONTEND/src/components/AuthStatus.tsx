@@ -7,7 +7,7 @@ const AuthStatus: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
 
   if (isAuthenticated === undefined) {
-    return null; // Or a loading spinner if you prefer
+    return null; 
   }
 
   if (!isAuthenticated) {

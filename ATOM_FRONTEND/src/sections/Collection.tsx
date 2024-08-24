@@ -7,10 +7,12 @@ import man from "../assets/collectionAssets/man.mp4";
 import woman from "../assets/collectionAssets/woman.mp4";
 import unisex from "../assets/collectionAssets/unisex.mp4";
 import { annotate } from 'rough-notation';
+import { useNavigate } from 'react-router-dom';
 
 import { useEffect } from 'react';
 import MovingBanner from "../components/MovingBanner";
 const Collection: React.FC = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     const atom: HTMLElement | null = document.querySelector('#atom');
     if (atom) {
@@ -22,11 +24,9 @@ const Collection: React.FC = () => {
   return (
     <section className="flex flex-col items-center justify-center my-8 ">
       <div className="mx-auto text-center mb-20">
-        <span className="block mb-2 text-lg md:text-xl lg:text-2xl xl:text-3xl text-indigo-300">
-          Collection
-        </span>
-        <h2 className="mb-4 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-800">
-          Our Recent arrivals
+
+        <h2 className="mb-4 atom text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-800">
+          our Recent arrivals
         </h2>
         <p className="text-base md:text-lg lg:text-xl xl:text-2xl text-neutral-400">
           There are many ways to express yourself one of them is using ATOM
@@ -56,7 +56,9 @@ const Collection: React.FC = () => {
       recent collection you can be sure to find the perfect set that suits your style, no matter your preferences we have you covered.
     </p>
     <div className="md:ml-16 mt-4 md:mt-0 md:self-center md:w-[20%] w-[90%] flex items-center p-5 justify-center">
-      <button className="atom bg-slate-900 text-white py-2 w-full rounded-full hover:bg-black">
+      <button
+      onClick={() => navigate('/items')}
+      className="atom bg-slate-900 text-white py-2 w-full rounded-full hover:bg-black">
         Shop Now
       </button>
     </div>

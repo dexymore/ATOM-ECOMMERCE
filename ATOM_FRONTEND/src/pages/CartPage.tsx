@@ -11,13 +11,10 @@ import {
   createOrderCheckout,
 } from "../utils/API";
 import toast, { Toaster } from "react-hot-toast";
-
-
 import CheckoutModel from "../components/CheckoutModel";
 import ViewModel from "../components/ViewModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-
 interface Image {
   public_id: string;
   url: string;
@@ -30,14 +27,12 @@ interface Item {
   price: number;
   images: Image[];
 }
-
 const CartPage: React.FC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   const [savings, setSavings] = useState<number>(0);
   const [tax, setTax] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -45,17 +40,13 @@ const CartPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewItemId, setViewItemId] = useState<string | undefined>(undefined);
-
   const toggleViewModal = () => {
     setIsViewModalOpen(!isViewModalOpen);
- 
   };
   const toggleCheckModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
   const [cartLoading, setCartLoading] = useState<boolean>(true);
-
   useEffect(() => {
     const loadCart = async () => {
        setCartLoading(true);
@@ -67,7 +58,6 @@ const CartPage: React.FC = () => {
          setCartLoading(false);
       }
     };
-
     loadCart();
   }, [dispatch]);
   useEffect(() => {
@@ -87,7 +77,6 @@ const CartPage: React.FC = () => {
       setStorePickup(0);
     }
   }, [cart.totalPrice, cart.items]);
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -99,66 +88,44 @@ const CartPage: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchItems();
   }, []);
-
   const handleRemoveFromCart = async (itemId: string) => {
     try {
       await removeFromCart(itemId);
       dispatch(fetchCart());
-
- 
         toast.success("Item removed from cart");
-
     } catch (error) {
       console.error("Error removing item from cart:", error);
-
         toast.error("Error removing item from cart");
-
     }
   };
-
-  // Handle add item to cart
   const handleAddToCart = async (itemId: string) => {
     try {
       await addToCart(itemId);
       dispatch(fetchCart());
-
         toast.success("Item added to cart");
-
     } catch (error) {
-
         toast.error("Error adding item to cart");
-
       console.error("Error adding item to cart:", error);
     }
   };
-
   const handleRemoveAllInstances = async (itemId: string) => {
     try {
       await removeOneItemInstance(itemId);
       dispatch(fetchCart());
-
         toast.success("All instances removed from cart");
-
     } catch (error) {
       console.error("Error removing all instances from cart:", error);
-
         toast.error("Error removing all instances from cart");
-
     }
   };
-
   const handlevoucher = (e: any) => {
     e.preventDefault();
     toast.error("this is not a valid voucher");
   };
-
   return (
     <>
-      
-
    {  cartLoading? (
      <div className="flex items-center justify-center w-full h-[600px]">
      <FontAwesomeIcon
@@ -170,7 +137,9 @@ const CartPage: React.FC = () => {
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-              <div className="space-y-6">
+              {
+                cart.items.length>0?
+                <div className="space-y-6">
                 {cart.items.map((cartItem) => (
                   <div
                     key={cartItem.itemId._id}
@@ -189,7 +158,6 @@ const CartPage: React.FC = () => {
                           alt={cartItem.itemId.name}
                         />
                       </a>
-
                       <div className="flex items-center justify-between md:order-3 md:justify-end">
                         <div className="flex items-center">
                           <div className="flex items-center space-x-2">
@@ -222,7 +190,6 @@ const CartPage: React.FC = () => {
                           </p>
                         </div>
                       </div>
-
                       <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                         <a
                            href={`/ItemsDetails/${cartItem.itemId?._id}`}
@@ -233,7 +200,6 @@ const CartPage: React.FC = () => {
                         <p className="text-base font-normal text-gray-500">
                           {cartItem.itemId.description}
                         </p>
-
                         <div className="flex items-center gap-4">
                           <button
                             type="button"
@@ -245,7 +211,6 @@ const CartPage: React.FC = () => {
                          >
                             View
                           </button>
-
                           <button
                             type="button"
                             className="inline-flex atom items-center text-sm font-medium text-red-600 hover:underline"
@@ -277,7 +242,9 @@ const CartPage: React.FC = () => {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div>:<div className="flex items-center justify-center w-full h-[600px]">
+                your cart is empty start shopping and fill it up
+                </div>}
               <div className="hidden xl:mt-8 xl:block">
                 <h3 className="text-2xl font-semibold text-gray-900">
                   People also bought
@@ -294,13 +261,11 @@ const CartPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
             <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
               <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
                 <p className="text-xl font-semibold text-gray-900">
                   Order summary
                 </p>
-
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <dl className="flex items-center justify-between gap-4">
@@ -311,7 +276,6 @@ const CartPage: React.FC = () => {
                         ${cart.totalPrice.toFixed(2)}
                       </dd>
                     </dl>
-
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500">
                         Savings
@@ -320,7 +284,6 @@ const CartPage: React.FC = () => {
                         -${savings.toFixed(2)}
                       </dd>
                     </dl>
-
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500">
                         Store Pickup
@@ -329,7 +292,6 @@ const CartPage: React.FC = () => {
                         ${storePickup.toFixed(2)}
                       </dd>
                     </dl>
-
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500">
                         Tax
@@ -339,7 +301,6 @@ const CartPage: React.FC = () => {
                       </dd>
                     </dl>
                   </div>
-
                   <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                     <dt className="text-base font-bold text-gray-900">Total</dt>
                     <dd className="text-base font-bold text-gray-900">
@@ -347,17 +308,15 @@ const CartPage: React.FC = () => {
                     </dd>
                   </dl>
                 </div>
-
                 <button
                   onClick={toggleCheckModal}
                   className="flex w-full atom items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Proceed to Checkout
                 </button>
-
                 <div className="flex items-center justify-center gap-2">
                   <a
-                    href="#"
+                    href="/items"
                     title=""
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline"
                   >
@@ -365,7 +324,6 @@ const CartPage: React.FC = () => {
                   </a>
                 </div>
               </div>
-
               <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
                 <form className="space-y-4">
                   <div>
@@ -395,7 +353,6 @@ const CartPage: React.FC = () => {
             </div>
           </div>
         </div>
-
         <CheckoutModel isOpen={isModalOpen} toggleCheckModal={toggleCheckModal}>
           {" "}
         </CheckoutModel>
@@ -407,5 +364,4 @@ const CartPage: React.FC = () => {
     </>
   );
 };
-
 export default CartPage;
