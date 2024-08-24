@@ -33,10 +33,16 @@ declare global {
     }
   }
 }
-// app.use(cors({
-//   origin: 'https://atom-ecommerce-frontend.vercel.app',
-//    // Replace with your frontend URL
-// }));
+
+// Configure CORS
+app.use(cors({
+  origin: 'https://atom-ecommerce-frontend.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Your other middleware and routes
+
 app.use(mongoSanitize());
 app.post('/api/v1/webhook',express.raw({type:'application/json'}),webhookHandler );
 
