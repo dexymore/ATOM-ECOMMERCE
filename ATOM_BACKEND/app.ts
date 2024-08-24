@@ -33,16 +33,15 @@ declare global {
     }
   }
 }
-
+app.use(cors({
+  origin: 'https://atom-ecommerce-frontend.vercel.app', // Replace with your frontend URL
+}));
 app.use(mongoSanitize());
 app.post('/api/v1/webhook',express.raw({type:'application/json'}),webhookHandler );
 
 app.use(express.json({ limit: '20kb' }));
 
-app.use(cors({
-  origin: 'https://atom-ecommerce-frontend.vercel.app', 
-  credentials: true,
-}));
+
 app.use(cookieParser());
 app.use(helmet.contentSecurityPolicy({
   directives: {
