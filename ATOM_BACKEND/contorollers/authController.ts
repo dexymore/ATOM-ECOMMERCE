@@ -25,12 +25,13 @@ export const createSendToken = (user: any, statusCode: number, res: Response): v
   const cookieOptions: Record<string, any> = {
     expires: new Date(Date.now() + Number(process.env.JWT_EXPIRES_IN_COOKIE) * 1000), // JWT_EXPIRES_IN_COOKIE should be in seconds
     httpOnly: true,
-    sameSite:  'Lax', // 'None' for cross-site requests in production, 'Lax' for development
+    sameSite:  'None',
+    secure:true // 'None' for cross-site requests in production, 'Lax' for development
   };
 
-  if (process.env.NODE_ENV === 'production') {
-    cookieOptions.secure = true; // Only send over HTTPS in production
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   cookieOptions.secure = true; // Only send over HTTPS in production
+  // }
 
   res.cookie('jwt', token, cookieOptions);
   user.password = undefined;
@@ -78,7 +79,6 @@ exports.login = asyncHandler(async (req: Request, res: Response, next: NextFunct
 
   createSendToken(user, 200, res);
 });
-
 
 
 
