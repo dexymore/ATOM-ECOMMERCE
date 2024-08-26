@@ -81,6 +81,7 @@ const protect = asyncHandler(async (req: Request, res: Response, next: NextFunct
     }
   
     req.user = currentUser;
+    console.log(req.user);
     next();
   });
   

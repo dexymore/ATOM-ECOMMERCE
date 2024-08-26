@@ -7,7 +7,7 @@ const appMiddlewares = require('../middlewares/appMiddlewares');
 const router = express.Router();
 
 router.get('/', cartController.getAllCarts);
-// router.use(protect);
+router.use(protect);
 router.patch('/add-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.addItemsToCart);
 router.patch('/remove-items', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeItemsFromCart);
 router.patch('/remove-all-item-instances', appMiddlewares.checkIDS({ body: ['itemId'] }),cartController.removeAllItemInstancesFromCart);
