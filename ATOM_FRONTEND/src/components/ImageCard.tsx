@@ -20,7 +20,7 @@ export default function ImageCard({ image, title ,desc,video }: {video:string, i
             loop
             muted
             onLoad={() => setIsLoaded(true)} 
-            className="object-cover w-[1450px] h-[800px]"
+            className="object-cover w-[1400px] h-[800px]"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="absolute bottom-0 left-0 w-full p-4 h-[100%] bg-black bg-opacity-50 flex flex-col items-center">
