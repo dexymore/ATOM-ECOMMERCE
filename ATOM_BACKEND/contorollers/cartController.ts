@@ -25,7 +25,8 @@ exports.getAllCarts = asyncHandler(async (req: Request, res: Response, next: Nex
 });
 
 exports.addItemsToCart = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { itemId } = req.body;
+    const  itemId  = req.body.itemId;
+    console.log(itemId);
     const userId = req.user._id;
 
     if (!userId) {
