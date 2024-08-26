@@ -93,7 +93,7 @@ const Hero: React.FC = () => {
         </div>
         <a
           href="/items"
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 md:px-4  px-8 py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base "
         >
           View our latest collection
         </a>
