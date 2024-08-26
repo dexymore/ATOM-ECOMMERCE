@@ -327,7 +327,7 @@ export const Items: React.FC = () => {
         ) : (
           <>
             {" "}
-            <div className="flex-wrap px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="flex-wrap md:px-12 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {items.slice(0, itemCount).map((item: Item) => (
                 <div
                   key={item._id}
@@ -340,7 +340,7 @@ export const Items: React.FC = () => {
             <div className="mt-6 mb-6">
               {items.length !== itemCount && (
                 <button
-                  className="bg-slate-900 hover:bg-black text-white font-bold py-2 px-4 rounded-full"
+                  className="bg-slate-900 atom hover:bg-black text-white font-bold py-2 px-4 rounded-full"
                   onClick={handleLoadMore}
                 >
                   {" "}

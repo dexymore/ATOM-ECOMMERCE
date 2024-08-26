@@ -5,7 +5,7 @@ import { Order } from '../models/orderModel';
 import  AppError  from '../utils/AppError';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-06-20',
+      apiVersion: '2024-06-20',
 });
 
 export const webhookHandler = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
