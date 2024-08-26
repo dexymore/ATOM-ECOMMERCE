@@ -62,8 +62,8 @@ exports.getCheckout = asyncHandler(async (req: Request, res: Response) => {
         },
       ],
       mode: 'payment',
-      success_url: `http://localhost:5173/`,
-      cancel_url: `http://localhost:5173/cart`,
+      success_url: `https://atom-ecommerce-frontend.vercel.app`,
+      cancel_url: `https://atom-ecommerce-frontend.vercel.app/cart`,
       metadata: {
         address: req.body.formData.address,
         phone_number: req.body.formData.phone_number,
