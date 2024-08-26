@@ -29,7 +29,7 @@ const Services: React.FC = () => {
                 </span>{" "}
                 orders for more than{" "}
                 <span
-                  className="text-yellow-400 leading-[4rem] atom"
+                  className="text-yellow-400 md:leading-[4rem] atom"
                   id="orderYears3"
                 >
                   +3 years
@@ -37,7 +37,7 @@ const Services: React.FC = () => {
               </h2>
             </div>
             <div>
-              <p className="text-gray-500 md:text-2xl">
+              <p className="text-gray-500 md:text-2xl text-xl">
                 At the heart of our success lies Atom, our beacon of innovation.
                 Atom isn't just a platform; it's a symphony of efficiency and
                 ingenuity. It streamlines processes, empowers users, and
