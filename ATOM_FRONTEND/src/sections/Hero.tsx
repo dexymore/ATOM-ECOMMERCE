@@ -65,14 +65,9 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, delay: 0.5, staggerChildren: 0.5 }}
             className="text-6xl md:text-7xl lg:text-9xl text-white"
           >
-            
-              <motion.span
-                
-                className="atom relative z-1 px-[60px]  text-7xl md:text-9xl  bg-clip-text text-transparent bg-gradient-to-b from-yellow-600 to-red-900  text-center font-sans font-bold"
-              >
+            <motion.span className="atom relative z-1 px-[60px]  text-7xl md:text-9xl  bg-clip-text text-transparent bg-gradient-to-b from-yellow-600 to-red-900  text-center font-sans font-bold">
               AToM
-              </motion.span>
-        
+            </motion.span>
           </motion.h1>
           <motion.h2
             initial="hidden"
@@ -93,7 +88,7 @@ const Hero: React.FC = () => {
         </div>
         <a
           href="/items"
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 md:px-4  px-8 py-6 md:py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base "
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-white text-black rounded-full shadow-lg text-sm sm:text-base hover:bg-black hover:text-white atom whitespace-nowrap overflow-hidden text-ellipsis"
         >
           View our latest collection
         </a>
