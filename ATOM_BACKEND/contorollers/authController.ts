@@ -13,8 +13,8 @@ import {Cart} from '../models/cartModel';
 
 const expirationdate=Math.floor(Date.now() / 1000) + parseInt(process.env.JWT_EXPIRES_IN);
 
-const signToken = (id: string) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const signToken = (id: string): string => {
+  return jwt.sign({ id }, process.env.JWT_SECRET as string, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
@@ -22,12 +22,15 @@ const signToken = (id: string) => {
 export const createSendToken = (user: any, statusCode: number, res: Response): void => {
   const token = signToken(user._id);
 
-  const cookieOptions = {
+  const cookieOptions: Record<string, any> = {
     expires: new Date(Date.now() + Number(process.env.JWT_EXPIRES_IN_COOKIE) * 1000), // JWT_EXPIRES_IN_COOKIE should be in seconds
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Cookie will only be sent over HTTPS in production
-    
+    sameSite:  'Lax', // 'None' for cross-site requests in production, 'Lax' for development
   };
+
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true; // Only send over HTTPS in production
+  }
 
   res.cookie('jwt', token, cookieOptions);
   user.password = undefined;
@@ -39,7 +42,6 @@ export const createSendToken = (user: any, statusCode: number, res: Response): v
     },
   });
 };
-// Assuming this is a utility function
 
 exports.signup = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const newUser = await User.create(req.body);
