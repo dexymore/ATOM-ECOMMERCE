@@ -26,9 +26,9 @@ exports.getAllCarts = asyncHandler(async (req: Request, res: Response, next: Nex
 
 exports.addItemsToCart = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const  itemId  = req.body.itemId;
-
+console.log(req.user);
     const userId = req.user._id;
-console.log("user",userId)
+
     if (!userId) {
         return next(new AppError('User ID is required', 400));
     }
