@@ -99,21 +99,21 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <div className="w-[25%] flex flex-row justify-between mt-3">
-                  <a href="#">
+                  <a href="https://github.com/dexymore">
                     <FontAwesomeIcon
                       icon={faSquareGithub}
                       size="2xl"
                       className="hover:text-black"
                     />
                   </a>
-                  <a href="#">
+                  <a href="https://www.facebook.com/ahmfd22">
                     <FontAwesomeIcon
                       icon={faSquareFacebook}
                       size="2xl"
                       className="hover:text-blue-900"
                     />
                   </a>
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/ahmed-suleiman-5a37a7193/">
                     <FontAwesomeIcon
                       icon={faLinkedin}
                       size="2xl"

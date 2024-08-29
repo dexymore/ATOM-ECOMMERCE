@@ -44,7 +44,13 @@ const CartPage: React.FC = () => {
     setIsViewModalOpen(!isViewModalOpen);
   };
   const toggleCheckModal = () => {
-    setIsModalOpen(!isModalOpen);
+    if (cart.items.length > 0) {
+      setIsModalOpen(!isModalOpen);
+    }
+    else {
+      toast.error("Cart is empty");
+    }
+
   };
   const [cartLoading, setCartLoading] = useState<boolean>(true);
   useEffect(() => {
