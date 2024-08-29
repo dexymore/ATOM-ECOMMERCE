@@ -165,7 +165,7 @@ const ProductDetails: React.FC = () => {
         });
         navigate("/auth");
       }
-      toast.error("Failed to add to cart");
+   
     } finally {
       setCartLoading(false);
     }

@@ -7,7 +7,7 @@ const Contact: React.FC = () => {
             style={{ backgroundImage: `url(${contactBg})` }}
             className="bg-cover bg-center h-screen flex items-center justify-center"
         >
-            <div className="bg-white w-full max-w-3xl py-6 px-8 mt-8 rounded-lg shadow-lg">
+            <div className="bg-white md:w-full w-[90%] md:mb-1 mb-4 max-w-3xl py-6 px-8 mt-8 rounded-lg shadow-lg">
                 <h2 className="mb-4 atom text-4xl tracking-tight font-extrabold text-center text-gray-900">
                     Contact Us
                 </h2>
