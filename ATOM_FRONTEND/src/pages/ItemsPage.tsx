@@ -141,8 +141,8 @@ export const Items: React.FC = () => {
           searchParams.get("name" || "")
         );
 
-        if (response.status === "fail") {
-          setError(response.message);
+        if (response.length===0 ) {
+          setError("No items found");
           setItems([]);
         } else {
           setError(null);
@@ -150,7 +150,7 @@ export const Items: React.FC = () => {
           setItemCount(response.length > 8 ? 8 : response.length);
         }
       } catch (error) {
-        setError("Failed to fetch items");
+        setError("No items found");
       } finally {
         setLoading(false);
       }

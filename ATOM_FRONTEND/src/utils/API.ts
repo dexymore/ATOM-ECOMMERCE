@@ -132,7 +132,6 @@ export const getCurrentUser = async () => {
 
 export const filterItems = async (category: string = "", sex: string = "", size: string = "", name: string = "") => {
   try {
-
     const params = new URLSearchParams();
     if (category) params.append('category', category);
     if (sex) params.append('sex', sex);
@@ -140,11 +139,17 @@ export const filterItems = async (category: string = "", sex: string = "", size:
     if (name) params.append('name', name);
 
     const response = await API.get(`items/filterItem?${params.toString()}`);
- 
-    return response.data.data.items;
+    
+    if (response.data.status === "success") {
+      return response.data.data.items;
+    } else if (response.data.status === "fail") {
+      // Handle the "fail" case
+      console.log(response.data.message);
+      return [];
+    }
   } catch (error) {
-     return error ;
-
+    console.error("Error fetching filtered items:", error);
+    throw error;
   }
 }
 
