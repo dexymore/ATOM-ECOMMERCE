@@ -143,8 +143,7 @@ export const filterItems = async (category: string = "", sex: string = "", size:
     if (response.data.status === "success") {
       return response.data.data.items;
     } else if (response.data.status === "fail") {
-      // Handle the "fail" case
-      console.log(response.data.message);
+
       return [];
     }
   } catch (error) {

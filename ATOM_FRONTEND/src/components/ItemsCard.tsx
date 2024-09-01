@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,33 +21,39 @@ interface Item {
 const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
     const { images } = item;
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-    const [prevMouseX, setPrevMouseX] = useState<number | null>(null);
     const [hovered, setHovered] = useState<boolean>(false);
-    const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
+    const lastMoveTime = useRef<number>(0);
+    const lastMoveDirection = useRef<'left' | 'right' | null>(null);
+    const transitionDelay = 500; // 500ms delay between image changes
 
-    const handleMouseMove = (event: React.MouseEvent) => {
-        if (prevMouseX !== null) {
-            if (event.clientX > prevMouseX && currentImageIndex < images.length - 1) {
-                if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
-                transitionTimeout.current = setTimeout(() => {
-                    setCurrentImageIndex((prevIndex) => Math.min(prevIndex + 1, images.length - 1));
-                }, 20); // Adjust delay as needed (in milliseconds)
-            } else if (event.clientX < prevMouseX && currentImageIndex > 0) {
-                if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
-                transitionTimeout.current = setTimeout(() => {
-                    setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-                }, 20); // Adjust delay as needed (in milliseconds)
+    const handleMouseMove = useCallback((event: React.MouseEvent) => {
+        const now = Date.now();
+        if (now - lastMoveTime.current < transitionDelay) return; // Increased delay
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = event.clientX - rect.left; // x position within the element
+        const width = rect.width;
+        
+        if (x < width / 2) { // Left half
+            if (lastMoveDirection.current !== 'left' || currentImageIndex < images.length - 1) {
+                setCurrentImageIndex(prev => (prev + 1) % images.length);
+                lastMoveDirection.current = 'left';
+            }
+        } else { // Right half
+            if (lastMoveDirection.current !== 'right' || currentImageIndex > 0) {
+                setCurrentImageIndex(prev => (prev - 1 + images.length) % images.length);
+                lastMoveDirection.current = 'right';
             }
         }
-        setPrevMouseX(event.clientX);
-        setHovered(true);
-    };
 
+        lastMoveTime.current = now;
+    }, [currentImageIndex, images.length]);
+
+    const handleMouseEnter = () => setHovered(true);
     const handleMouseLeave = () => {
-        if (transitionTimeout.current) clearTimeout(transitionTimeout.current);
-        setPrevMouseX(null);
-        setCurrentImageIndex(0);
         setHovered(false);
+        setCurrentImageIndex(0);
+        lastMoveDirection.current = null;
     };
 
     const getBaseUrl = () => {
@@ -95,49 +101,57 @@ const ItemsCard: React.FC<{ item: Item }> = ({ item }) => {
     };
 
     return (
-        <>
-            <div
-                className="relative flex flex-col text-gray-700 bg-white shadow-sm bg-clip-border rounded-xl w-[300px] h-[450px] hover:shadow-lg m-3"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+        <div
+            className="relative flex flex-col text-gray-700 bg-white shadow-sm bg-clip-border rounded-xl w-[300px] h-[450px] hover:shadow-lg m-3"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
+            <Link
+                to={`/ItemsDetails/${item._id}`}
+                className="relative overflow-hidden text-gray-700 bg-white bg-clip-border h-96"
             >
-                <Link
+                {/* Default (first) image */}
+                <img
+                    src={images[0]?.url}
+                    alt="Default product image"
+                    className={`absolute top-0 left-0 object-cover w-[300px] h-[450px] transition-opacity duration-500 ease-in-out ${
+                        !hovered ? 'opacity-100' : 'opacity-0'
+                    }`}
+                />
+                {/* Other images */}
+                {images.map((image, index) => (
+                    <img
+                        key={image._id}
+                        src={image.url}
+                        alt={`Product image ${index + 1}`}
+                        className={`absolute top-0 left-0 object-cover w-[300px] h-[450px] transition-opacity duration-500 ease-in-out ${
+                            hovered && index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                        }`}
+                    />
+                ))}
+            </Link>
+            <div className="p-2">
+                <div className="flex-col items-center justify-between">
+                    <Link
                     to={`/ItemsDetails/${item._id}`}
-                    className="relative overflow-hidden text-gray-700 bg-white bg-clip-border h-96"
-                >
-                    <img
-                        src={images[currentImageIndex]?.url}
-                        alt="card-image"
-                        className={`object-cover w-[300px] h-[450px] transition-opacity duration-500 ease-in-out ${hovered ? 'opacity-100' : 'opacity-0'}`}
-                    />
-                    <img
-                        src={images[0]?.url}
-                        alt="card-image"
-                        className={`absolute top-0 left-0 object-cover w-[300px] h-[450px] transition-opacity duration-500 ease-in-out ${hovered ? 'opacity-0' : 'opacity-100'}`}
-                    />
-                </Link>
-                <div className="p-2">
-                    <div className="flex-col items-center justify-between">
-                        <Link
-                        to={`/ItemsDetails/${item._id}`}
-                        className="block text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            {item.name}
-                        </Link>
-                        <div className="flex justify-between items-center">
-                            <p className="block text-base antialiased font-medium leading-relaxed text-gray-500">
-                                ${item.price}
-                            </p>
-                            <button
-                                onClick={() => copyToClipboard(item._id)}
-                                className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full bg-white border-2 border-gray-300 cursor-pointer hover:border-slate-900 hover:text-slate-900"
-                            >
-                                <FontAwesomeIcon icon={faShareNodes} />
-                            </button>
-                        </div>
+                    className="block text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                        {item.name}
+                    </Link>
+                    <div className="flex justify-between items-center">
+                        <p className="block text-base antialiased font-medium leading-relaxed text-gray-500">
+                            ${item.price}
+                        </p>
+                        <button
+                            onClick={() => copyToClipboard(item._id)}
+                            className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full bg-white border-2 border-gray-300 cursor-pointer hover:border-slate-900 hover:text-slate-900"
+                        >
+                            <FontAwesomeIcon icon={faShareNodes} />
+                        </button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
