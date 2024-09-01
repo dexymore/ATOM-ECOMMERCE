@@ -177,7 +177,8 @@ export const submitForgotPassword = async (email: string) => {
 
 export const resetPassword = async (token: string, password: string, passwordConfirm: string) => {
   try {
-    const response = await axios.patch(`/api/v1/users/resetpassword/${token}`, {
+    
+    const response = await API.patch(`users/resetpassword/${token}`, {
       password,
       passwordConfirm,
     });

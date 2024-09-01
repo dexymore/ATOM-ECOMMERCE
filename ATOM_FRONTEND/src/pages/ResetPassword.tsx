@@ -45,7 +45,7 @@ const ResetPassword: React.FC = () => {
       const response = await resetPassword(token, password, passwordConfirm);
       if (response.status === "success") {
         toast.success("Password reset successfully.");
-        navigate("/login"); // Redirect to login page
+        navigate("/auth");
       } else {
         toast.error("Password reset failed. Please try again.");
       }

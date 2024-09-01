@@ -82,9 +82,9 @@ const Login: React.FC = () => {
               Password
             </label>
             <Link
-              
-              to='/forgot-password'
-              className="text-xs text-gray-500"
+              to="/forgot-password"
+              className="text-xs hover:underline"
+              style={{ color: "#6366F1" }} 
             >
               Forgot Password?
             </Link>
