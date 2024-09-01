@@ -1,3 +1,4 @@
+import { parseStackingContexts } from 'html2canvas/dist/types/render/stacking-context';
 import Joi from 'joi';
 // do not forget ro rensure about the email regex pattern
 export const userJoiSchema = Joi.object({
@@ -33,7 +34,26 @@ export const userLoginJoiSchema = Joi.object({
     })
 });
 
-export const userCheckoutSchema = Joi.object({
+
+export const userForgotPasswordSchema = Joi.object({
+    email: Joi.string().regex(/^\S+@\S+\.\S+$/).required().messages({
+        'any.required': 'Please enter your email',
+        'string.base': 'Email must be a string',
+        'string.pattern.base': 'Please enter a valid email address in the format anything@anything.com'
+    })})    ;
+
+export const userResetPasswordSchema = Joi.object({
+    password: Joi.string().min(8).required().messages({
+        'any.required': 'A user must have a password',
+        'string.base': 'Password must be a string',
+        'string.min': 'Password must be at least 8 characters long'
+    }),
+    passwordConfirm: Joi.string().valid(Joi.ref('password')).required().messages({
+        'any.required': 'Please confirm your password',
+        'any.only': 'Passwords do not match'
+    })
+})
+    export const userCheckoutSchema = Joi.object({
     address: Joi.string().required().messages({
         'any.required': 'Please enter your address',
         'string.base': 'Address must be a string'

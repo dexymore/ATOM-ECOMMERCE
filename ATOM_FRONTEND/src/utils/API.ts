@@ -163,6 +163,30 @@ export const verifyUser = async () => {
   }
 };
 
+
+export const submitForgotPassword = async (email: string) => {
+  try {
+    const response = await API.post("/users/forgetpassword", { email });
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to submit forgot password:", error);
+    throw error;
+  }
+};
+
+export const resetPassword = async (token: string, password: string, passwordConfirm: string) => {
+  try {
+    const response = await axios.patch(`/api/v1/users/resetpassword/${token}`, {
+      password,
+      passwordConfirm,
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const logoutUser = async () => {
   try {
     const response = await API.get("/users/logout");

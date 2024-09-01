@@ -7,6 +7,7 @@ import { authActions } from "../store/auth";
 import { userLoginJoiSchema } from "../utils/JoiValidation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -80,18 +81,20 @@ const Login: React.FC = () => {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Password
             </label>
-            <a href="#" className="text-xs text-gray-500">
-              Forget Password?
-            </a>
+            <Link
+              
+              to='/forgot-password'
+              className="text-xs text-gray-500"
+            >
+              Forgot Password?
+            </Link>
           </div>
-          <label className="hidden text-gray-700 text-sm font-bold mb-2">"</label>
           <input
             className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
             type="password"
             value={password}
             onChange={handlePasswordChange}
             placeholder="enter your password"
-
           />
         </div>
         <div className="mt-8">
@@ -110,9 +113,7 @@ const Login: React.FC = () => {
           </button>
         </div>
       </form>
-      <div className="mt-4 flex items-center justify-between">
-   
-      </div>
+      <div className="mt-4 flex items-center justify-between"></div>
     </div>
   );
 };

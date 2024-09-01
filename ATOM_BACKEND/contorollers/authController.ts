@@ -95,8 +95,8 @@ exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: 
 
     // 3) Send password reset email to the user
     try {
-        const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetpassword/${resetToken}`;
-        await new Email(user, resetURL).sendPasswordResetEmail(); // Assuming your Email class has a method named sendPasswordResetEmail
+        const resetEmail = `http://localhost:5173/reset-password/:${resetToken}`;
+        await new Email(user, resetEmail).sendPasswordResetEmail();
         res.status(200).json({ status: 'success', message: 'Password reset token sent to email.' });
     } catch (error) {
         user.passwordResetToken = undefined;
@@ -136,7 +136,7 @@ exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: 
 
 
 //   export const isLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
+//     try 
 //         if (req.cookies.jwt) {
 //             const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET) as { id: string, iat: number };
 //             const freshUser = await User.findById(decoded.id);

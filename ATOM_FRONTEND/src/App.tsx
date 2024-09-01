@@ -17,6 +17,8 @@ import { NotFound } from './pages/NotFound'
 import { useEffect } from 'react'
 import { useDispatch } from "react-redux";
 import verifyUserThunk from './store/authThunks'
+import ForgetPassword from './pages/ForgetPassword'
+import ResetPassword from './pages/ResetPassword'
 
 
 
@@ -65,6 +67,8 @@ useEffect(() => {
      <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
      <Route path='/contact' element={<Contact></Contact>} />
      <Route path='/about' element={<About></About>} />
+     <Route path='/forgot-password' element={<ForgetPassword></ForgetPassword>} />
+    <Route path='/reset-password/:token' element={<ResetPassword></ResetPassword>} />
      <Route path='*' element={<NotFound></NotFound>} />
 
     </Routes>

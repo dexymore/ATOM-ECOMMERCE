@@ -13,13 +13,13 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
 router.post('/forgetpassword', authController.forgetpassword);
-
+router.patch('/resetpassword/:token', authController.resetPassword);
 
 router.use(protect);
 router.get("/verify",authController.verifyAuth)
 router.get('/logout', authController.logout);
 
-router.patch('/resetpassword/:token', authController.resetPassword);
+
 
 router.get('/', userController.getAllUsers);
 router.get('/me', userController.getCurrentUser);
