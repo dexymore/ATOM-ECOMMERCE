@@ -26,7 +26,7 @@ const ResetPassword: React.FC = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-
+    event.preventDefault(); 
     const userData = { password, passwordConfirm };
     const { error } = userResetPasswordSchema.validate(userData, {
       abortEarly: false,
@@ -54,7 +54,7 @@ const ResetPassword: React.FC = () => {
     } finally {
       setLoading(false);
     }
-    event.preventDefault();  
+ 
 };
 
   return (

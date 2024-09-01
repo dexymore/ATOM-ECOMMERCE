@@ -95,7 +95,7 @@ exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: 
 
     // 3) Send password reset email to the user
     try {
-        const resetEmail = `http://localhost:5173/reset-password/:${resetToken}`;
+        const resetEmail = `http://localhost:5173/reset-password/${resetToken}`;
         await new Email(user, resetEmail).sendPasswordResetEmail();
         res.status(200).json({ status: 'success', message: 'Password reset token sent to email.' });
     } catch (error) {

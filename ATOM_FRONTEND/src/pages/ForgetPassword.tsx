@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import {submitForgotPassword} from "../utils/API";
 const ForgetPassword: React.FC = () => {
   const  handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault(); 
     const userData = { email };
     const { error } = userForgotPasswordSchema.validate(userData, {
       abortEarly: false,
@@ -37,7 +38,7 @@ catch(error){
 finally{
     setLoading(false);
 }
-    event.preventDefault();
+ 
 
   };
   const [email, setEmail] = useState("");
