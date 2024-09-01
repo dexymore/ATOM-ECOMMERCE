@@ -31,15 +31,22 @@ export default class Email {
     async sendWelcomeEmail(): Promise<void> {
         // Generate HTML for the welcome email
         const html = `
-            <html>
-                <body>
-                    <h1>Welcome to ATOM, ${this.firstName}!</h1>
-                    <p>We are thrilled to have you join us.</p>
-                    <p>Visit our website: <a href="${this.url}">${this.url}</a></p>
-                    <p>Best regards,<br>Admin</p>
-                </body>
-            </html>
-        `;
+        <html>
+            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    <h1 style="color: #333333;">Welcome to ATOM, ${this.firstName}!</h1>
+                    <p style="color: #666666;">We are thrilled to have you join us.</p>
+                    <p>
+                        <a href="${this.url}" style="display: inline-block; padding: 15px 25px; font-size: 16px; color: #ffffff; background-color: #000000; border-radius: 5px; font-weight: bold;">
+                            Start Shopping Now
+                        </a>
+                    </p>
+                    <p style="color: #666666;">Best regards,<br>Admin</p>
+                </div>
+            </body>
+        </html>
+    `;
+    
 
         await this.sendEmail(html, 'Welcome to Our Website');
     }
@@ -48,12 +55,12 @@ export default class Email {
         // Generate HTML for the password reset email
         const html = `
         <html>
-            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center;">
+            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; min-height background-color: #f4f4f4; text-align: center;">
                 <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                     <h1 style="color: #333333;">Password Reset Request</h1>
                     <p style="color: #666666;">You are receiving this email because you requested a password reset.</p>
                     <p>
-                        <a href="${this.url}" style="display: inline-block; padding: 15px 25px; font-size: 16px; color: #ffffff; background-color: #000000; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                        <a href="${this.url}" style="display: inline-block; padding: 15px 25px; font-size: 16px; color: #ffffff; background-color: #000000;  border-radius: 5px; font-weight: bold;">
                             Reset Your Password
                         </a>
                     </p>

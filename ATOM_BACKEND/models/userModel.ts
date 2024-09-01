@@ -98,8 +98,8 @@ userSchema.methods.createPasswordResetToken = function (): string {
         .digest('hex');
 
 
-
-    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+// canged the expires time to 5 minutes instead of 10 minutes , cause 10 is a big number i think
+    this.passwordResetExpires = Date.now() + 5 * 60 * 1000;
 
     return resetToken;
 };

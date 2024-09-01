@@ -58,7 +58,7 @@ exports.signup = asyncHandler(async (req: Request, res: Response, next: NextFunc
   newUser.cart = newCart._id;
   await newUser.save();
 
-  const welcomeEmail = new Email(newUser, 'https://yourwebsite.com');
+  const welcomeEmail = new Email(newUser, 'https://atom-ecommerce-frontend.vercel.app/');
   await welcomeEmail.sendWelcomeEmail();
 
   createSendToken(newUser, 201, res);
@@ -95,7 +95,7 @@ exports.forgetpassword = asyncHandler(async (req: Request, res: Response, next: 
 
     // 3) Send password reset email to the user
     try {
-        const resetEmail = `https://atom-ecommerce-frontend.vercel.app/${resetToken}`;
+        const resetEmail = `https://atom-ecommerce-frontend.vercel.app/reset-password/${resetToken}`;
         await new Email(user, resetEmail).sendPasswordResetEmail();
         res.status(200).json({ status: 'success', message: 'Password reset token sent to email.' });
     } catch (error) {
